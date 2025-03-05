@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Git Add, Commit with Message, Push",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "git add . && git commit -m \"${input:commitMessage}\" && git push origin \"${input:branchName}\""
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "Task to automatically add, commit, and push changes with dynamic commit message and branch name."
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMessage",
+      "default": "Auto commit (no message provided)",
+      "type": "promptString",
+      "description": "Enter commit message"
+    },
+    {
+      "id": "branchName",
+      "default": "main",
+      "type": "promptString",
+      "description": "Enter branch name to push to"
+    }
+  ]
+}
