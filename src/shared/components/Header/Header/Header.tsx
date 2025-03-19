@@ -25,6 +25,15 @@ export const Header: React.FC = () => {
     );
   };
 
+  React.useEffect(() => {
+    const lang = JSON.parse(localStorage.getItem('harmonie-lang') as string);
+    if (lang) {
+      if (lang === 'uK' || lang === 'ru') {
+        setLang(lang);
+      }
+    }
+  }, []);
+
   return (
     <header className={css.header}>
       <Link href="/" className={css.header__logo__link}>

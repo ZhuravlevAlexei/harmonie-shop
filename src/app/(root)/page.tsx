@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import css from './page.module.css';
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <div className={css.page}>
