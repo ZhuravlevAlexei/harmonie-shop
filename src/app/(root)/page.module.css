@@ -4,9 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  /* padding: 80px; */
   gap: 10px;
-  font-family: var(--font-geist-sans);
 }
 
 /* Enable hover only on non-touch devices */

@@ -1,13 +1,18 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --main-black-color: #000;
+  --main-white-color: #fff;
+  --orange-star-color: #ffb547;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-black-color);
+  background: var(--main-white-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-inter);
 }
 
 nextjs-portal {

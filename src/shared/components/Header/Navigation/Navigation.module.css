@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 46px;
+}
+
+.nav__link {
+  font-size: 18px;
+  line-height: 1.15;
+  font-weight: 500;
+  color: var(--main-black-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--orange-star-color);
+  }
+}
