@@ -3,26 +3,21 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import css from './Header.module.css';
-import { AllowedLangs } from '@/shared/constants/common';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { Navigation } from '../Navigation/Navigation';
 import { ProfileButton } from '../ProfileButton/ProfileButton';
 import { CartButton } from '../CartButton/CartButton';
+import { AllowedLangs } from '@/shared/constants/common';
 import { useLang } from '@/shared/hooks/useLang';
-// import { setLang } from '@/shared/store/lang';
-import { useZLang } from '@/shared/store/zlang';
+import css from './Header.module.css';
 
 export const Header: React.FC = () => {
-  const { lang } = useLang();
-
-  const setZlang = useZLang(state => state.setLang);
+  const { lang, setlang } = useLang();
 
   const handleLanguageChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    // setLang(event.target.value as AllowedLangs);
-    setZlang(event.target.value as AllowedLangs);
+    setlang(event.target.value as AllowedLangs);
     localStorage.setItem(
       'harmonie-lang',
       JSON.stringify(event.target.value as AllowedLangs)
@@ -33,11 +28,10 @@ export const Header: React.FC = () => {
     const lang = JSON.parse(localStorage.getItem('harmonie-lang') as string);
     if (lang) {
       if (lang === 'uK' || lang === 'ru') {
-        // setLang(lang);
-        setZlang(lang);
+        setlang(lang);
       }
     }
-  }, [setZlang]);
+  }, [setlang]);
 
   return (
     <header className={css.header}>

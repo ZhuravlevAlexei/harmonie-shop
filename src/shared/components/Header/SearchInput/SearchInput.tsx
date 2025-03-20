@@ -1,7 +1,7 @@
-import { Search } from 'lucide-react';
 import React from 'react';
-import css from './SearchInput.module.css';
+import { Search } from 'lucide-react';
 import { useLang } from '@/shared/hooks/useLang';
+import css from './SearchInput.module.css';
 
 export const SearchInput: React.FC = () => {
   const { lang, translations } = useLang();

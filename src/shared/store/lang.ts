@@ -6,7 +6,7 @@ interface LangState {
   setLang: (lang: AllowedLangs) => void;
 }
 
-export const useZLang = create<LangState>()(set => ({
+export const useLangStore = create<LangState>()(set => ({
   lang: AllowedLangs.UK,
   setLang: (lang: AllowedLangs) => set({ lang }),
 }));

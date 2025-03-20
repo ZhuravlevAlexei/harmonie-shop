@@ -1,7 +1,7 @@
 import React from 'react';
-import css from './Navigation.module.css';
 import Link from 'next/link';
 import { useLang } from '@/shared/hooks/useLang';
+import css from './Navigation.module.css';
 
 export const Navigation: React.FC = () => {
   const { lang, translations } = useLang();
