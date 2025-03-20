@@ -1,7 +1,23 @@
 import Image from 'next/image';
 import css from './page.module.css';
+import { getGroups } from '@/actions/groups';
 
-export default function Home() {
+export default async function Home() {
+  const groups = await getGroups();
+  // console.log('groups: ', groups);
+  const rootGroup = groups.find(group => group.parent_group_id === null);
+
+  if (rootGroup) {
+    let firstLvlGroups = groups.filter(
+      group => group.parent_group_id === 10859524
+    );
+    firstLvlGroups = firstLvlGroups.sort((a, b) =>
+      (a.name ?? '').localeCompare(b.name ?? '')
+    );
+
+    console.log('firstLvlGroups: ', firstLvlGroups);
+  }
+
   return (
     <>
       <div className={css.page}>
