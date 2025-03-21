@@ -3,10 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SearchInput } from '../SearchInput/SearchInput';
-import { Navigation } from '../Navigation/Navigation';
-import { ProfileButton } from '../ProfileButton/ProfileButton';
-import { CartButton } from '../CartButton/CartButton';
+import { CartButton, Navigation, ProfileButton, SearchInput } from '..';
 import { AllowedLangs } from '@/shared/constants/common';
 import { useLang } from '@/shared/hooks/useLang';
 import css from './Header.module.css';
@@ -18,17 +15,26 @@ export const Header: React.FC = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setlang(event.target.value as AllowedLangs);
-    localStorage.setItem(
-      'harmonie-lang',
-      JSON.stringify(event.target.value as AllowedLangs)
-    );
+    document.cookie = `harmonie_lang=${event.target.value}; path=/; max-age=${
+      60 * 60 * 24 * 365
+    }`;
+    window.location.reload(); // Перезагружаем страницу, если нужен перевод контента
+    // localStorage.setItem(
+    //   'harmonie_lang',
+    //   JSON.stringify(event.target.value as AllowedLangs)
+    // );
   };
 
   React.useEffect(() => {
-    const lang = JSON.parse(localStorage.getItem('harmonie-lang') as string);
+    // const lang = JSON.parse(localStorage.getItem('harmonie_lang') as string);
+    const lang =
+      document.cookie.replace(
+        /(?:(?:^|.*;\s*)harmonie_lang\s*=\s*([^;]*).*$)|^.*$/,
+        '$1'
+      ) || 'uk'; // Если кука не установлена, возвращаем 'uk' по умолчанию
     if (lang) {
       if (lang === 'uK' || lang === 'ru') {
-        setlang(lang);
+        setlang(lang as AllowedLangs);
       }
     }
   }, [setlang]);

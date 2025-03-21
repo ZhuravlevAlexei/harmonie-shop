@@ -1,0 +1,6 @@
+.left_side {
+  grid-area: left_side;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}

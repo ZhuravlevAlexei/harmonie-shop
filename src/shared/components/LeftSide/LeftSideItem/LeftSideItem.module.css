@@ -1,0 +1,19 @@
+.left_side_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 3px 5px 0;
+  gap: 3px;
+  background-color: var(--main-backgroung-gray-color);
+  cursor: pointer;
+}
+
+.left_side_item__name {
+  /* padding-right: 5px; */
+  flex-grow: 1;
+}
+
+.left_side_item__icon {
+  min-width: 20px;
+  height: 20px;
+}
