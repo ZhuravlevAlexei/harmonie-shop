@@ -15,10 +15,11 @@ const connectDB = async (): Promise<boolean> => {
     await mongoose.connect(
       `mongodb+srv://${user}:${pwd}@${url}/${db}?retryWrites=true&w=majority`
     );
+    // console.log('MongoDB connected');
     return true;
-  } catch (e) {
-    console.log('Error while setting up mongo connection', e);
-    throw e;
+  } catch (err) {
+    console.log('Error while setting up Mongo connection', err);
+    throw err;
   }
 };
 

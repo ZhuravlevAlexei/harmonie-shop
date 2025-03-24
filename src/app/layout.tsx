@@ -1,8 +1,8 @@
 import { Inter } from 'next/font/google';
-import { Providers } from '@/shared/components';
 import { Header } from '@/shared/components/Header/Header/Header';
 import './globalStyles/normalize.css';
 import './globalStyles/globals.css';
+import { Providers } from '@/shared/components/common';
 
 const nunito = Inter({
   subsets: ['cyrillic'],

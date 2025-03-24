@@ -2,45 +2,36 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 
-import { useChildrenGroups } from '@/shared/hooks/useChildrenGroups';
-import { useProductNameMultilang } from '@/shared/hooks/useProductNameMultilang';
-
-import { DynamicIcon } from '../DynamicIcon/DynamicIcon';
-import { MenuItem } from '../MenuItem/MenuItem';
-
 import { SafeGroup } from '@/shared/types/types';
 
-import css from './LeftSideItem.module.css';
+import { useChildrenGroups } from '@/shared/hooks/useChildrenGroups';
+import { useProductNameMultilang } from '@/shared/hooks/useProductNameMultilang';
 import { useProductsStore } from '@/shared/store/products';
 
-interface LestSideItemProps {
+import css from './MenuItem.module.css';
+
+interface MenuItemProps {
   group: SafeGroup;
 }
 
-export const LeftSideItem: React.FC<LestSideItemProps> = ({ group }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ group }) => {
   const [menuIsOpen, setMenuIsOpen] = React.useState(false);
   const { hasChidrenGroups, chlidrenGroupsList } = useChildrenGroups(group.id);
-  const groupName = useProductNameMultilang(group).toUpperCase();
+  const groupName = useProductNameMultilang(group);
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
     useProductsStore.setState({ activeGroup: group });
   };
 
   return (
     <div
-      className={css.left_side_item}
+      className={css.menu_item}
       onMouseEnter={() => setMenuIsOpen(true)}
       onMouseLeave={() => setMenuIsOpen(false)}
       onClick={handleMenuClick}
     >
-      <div className={css.left_side_item__content}>
-        <DynamicIcon
-          className={css.left_side_item__avatar}
-          color={'#daa520'}
-          id={Number(group.id)}
-        />
-        <span className={css.left_side_item__name}>{groupName}</span>
-      </div>
+      {groupName}
       {hasChidrenGroups && (
         <>
           <ChevronRight className={css.left_side_item__icon} />

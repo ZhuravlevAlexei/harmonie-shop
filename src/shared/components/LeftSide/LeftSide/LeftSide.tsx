@@ -1,10 +1,10 @@
-import { GroupType } from '@/db/models/group';
 import React from 'react';
 import css from './LeftSide.module.css';
 import { LeftSideItem } from '../LeftSideItem/LeftSideItem';
+import { SafeGroup } from '@/shared/types/types';
 
 interface LeftSideProps {
-  groups: GroupType[];
+  groups: SafeGroup[];
 }
 
 export const LeftSide: React.FC<LeftSideProps> = ({ groups }) => {

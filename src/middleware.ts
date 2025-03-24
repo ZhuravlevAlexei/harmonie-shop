@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
   // console.log('🔥 Middleware сработал!');
-  const lang = req.cookies.get('harmonie_lang')?.value || 'uk'; // Язык из cookies или 'en' по умолчанию
+  const lang = req.cookies.get('harmonie_lang')?.value || 'uk'; // Язык из cookies или 'uk' по умолчанию
 
   // Если cookie нет, создаём его
   if (!req.cookies.has('harmonie_lang')) {
@@ -17,7 +17,7 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: '/', // Работает для всех страниц?
+  matcher: '/', // Работает для всех страниц? или root
 };
 
-// export const config = { matcher: '/:path*' }; // вообще для всех
+// export const config = { matcher: '/:path*' }; // вообще для всех страниц

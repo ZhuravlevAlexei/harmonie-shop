@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import { toastOptions } from '@/shared/options/toast';
 import React from 'react';

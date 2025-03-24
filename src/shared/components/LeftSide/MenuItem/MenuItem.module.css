@@ -1,8 +1,8 @@
-.left_side_item {
-  position: relative;
+.menu_item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 250px;
   padding: 5px 3px 5px 0;
   gap: 3px;
   color: var(--main-black-color);
@@ -11,23 +11,6 @@
   &:hover {
     color: var(--main-goldenrod-color);
   }
-}
-
-.left_side_item__content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.left_side_item__avatar {
-  min-width: 20px;
-  height: 20px;
-  color: var(--main-goldenrod-color);
-}
-
-.left_side_item__name {
-  font-size: 18px;
-  font-weight: 600;
 }
 
 .left_side_item__icon {
