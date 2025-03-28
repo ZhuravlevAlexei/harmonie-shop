@@ -9,6 +9,18 @@
   cursor: pointer;
 }
 
-.breadcrumbs__name {
-  text-decoration: underline;
+.breadcrumbs__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
 }
+
+.breadcrumbs__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* .breadcrumbs__name {
+  text-decoration: underline;
+} */

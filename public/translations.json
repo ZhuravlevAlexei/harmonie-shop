@@ -2,15 +2,21 @@
   "uk": {
     "header": {
       "search": "Пошук товарів...",
+      "searchButton": "Пошук!",
       "contacts": "Контакти"
     },
-    "root_point": "Каталог товарів"
+    "pagination_per_page": "Товарів на сторінці:",
+    "root_point": "Каталог товарів",
+    "nothing_found": "Нічого не знайдено..."
   },
   "ru": {
     "header": {
       "search": "Поиск товаров...",
+      "searchButton": "Поиск!",
       "contacts": "Контакты"
     },
-    "root_point": "Каталог товара"
+    "pagination_per_page": "Товаров на странице:",
+    "root_point": "Каталог товара",
+    "nothing_found": "Ничего не найдено..."
   }
 }

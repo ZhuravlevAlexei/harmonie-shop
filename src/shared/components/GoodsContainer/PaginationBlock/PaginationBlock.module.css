@@ -1,0 +1,11 @@
+.pagination__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.pagination__units__select {
+  border: none;
+}

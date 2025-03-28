@@ -1,11 +1,13 @@
 import { useLang } from '@/shared/hooks/useLang';
+
 import { AllowedLangs } from '@/shared/constants/common';
-import { SafeGroup } from '@/shared/types/types';
+
+import { SafeGroup, SafeProduct } from '@/shared/types/types';
 import { GroupType } from '@/db/models/group';
 import { ProductType } from '@/db/models/product';
 
 export const useProductNameMultilang = (
-  product: SafeGroup | GroupType | ProductType
+  product: SafeGroup | SafeProduct | GroupType | ProductType
 ): string => {
   const { lang } = useLang();
   // const lang = await getLanguage(); //if server side

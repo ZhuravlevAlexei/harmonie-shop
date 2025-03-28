@@ -1,3 +1,4 @@
+import { HiddenGroups } from './../shared/constants/hidden';
 import { groupsOrderTemplate } from '@/shared/constants/common';
 
 import { GroupType } from '@/db/models/group';
@@ -25,7 +26,11 @@ export const createSafeGroups = (groups: GroupType[]) => {
     order: 999,
   };
 
-  const workGroups: SafeGroup[] = groups.map(group => ({
+  const skipHiddenGroups: GroupType[] = groups.filter(
+    group => !HiddenGroups.includes(Number(group.id))
+  );
+
+  const workGroups: SafeGroup[] = skipHiddenGroups.map(group => ({
     id: Number(group.id),
     name: String(group.name),
     name_multilang: {

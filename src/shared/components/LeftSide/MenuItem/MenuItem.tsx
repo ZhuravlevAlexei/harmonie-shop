@@ -21,7 +21,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ group }) => {
 
   const handleMenuClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    useProductsStore.setState({ activeGroup: group });
+    useProductsStore.setState({
+      activeGroup: group,
+      searchText: '',
+    });
   };
 
   return (

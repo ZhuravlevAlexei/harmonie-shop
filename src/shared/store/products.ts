@@ -1,18 +1,18 @@
-import { ProductType } from '@/db/models/product';
 import { create } from 'zustand';
-import { SafeGroup } from '../types/types';
+
+import { SafeGroup, SafeProduct } from '../types/types';
 
 interface ProductsState {
   rootGroup: SafeGroup | null;
   activeGroup: SafeGroup | null;
   searchText: string;
   groups: SafeGroup[];
-  products: ProductType[];
+  products: SafeProduct[];
   setRootGroup: (rootGroup: SafeGroup) => void;
   setActiveGroup: (activeGroup: SafeGroup) => void;
   setSearchText: (search: string) => void;
   setGroups: (groups: SafeGroup[]) => void;
-  setProducts: (products: ProductType[]) => void;
+  setProducts: (products: SafeProduct[]) => void;
 }
 
 export const useProductsStore = create<ProductsState>()(set => ({
@@ -25,5 +25,5 @@ export const useProductsStore = create<ProductsState>()(set => ({
   setActiveGroup: (activeGroup: SafeGroup) => set({ activeGroup }),
   setSearchText: (searchText: string) => set({ searchText }),
   setGroups: (groups: SafeGroup[]) => set({ groups }),
-  setProducts: (products: ProductType[]) => set({ products }),
+  setProducts: (products: SafeProduct[]) => set({ products }),
 }));

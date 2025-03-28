@@ -1,7 +1,8 @@
 import { getGroups } from '@/actions/groups';
 
-import { Breadcrumbs, GoodsContainer, RootPoint } from '@/shared/components';
+import { Breadcrumbs, RootPoint } from '@/shared/components';
 import { LeftSide } from '@/shared/components/LeftSide';
+import { GoodsContainer } from '@/shared/components/GoodsContainer';
 
 import { GroupType } from '@/db/models/group';
 
@@ -11,6 +12,7 @@ import css from './page.module.css';
 
 export default async function Home() {
   const groups = (await getGroups()) as GroupType[];
+
   const { rootGroup, workGroups, firstLvlGroups } = createSafeGroups(groups);
 
   return (

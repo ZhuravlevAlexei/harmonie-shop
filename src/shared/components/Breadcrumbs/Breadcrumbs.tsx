@@ -3,11 +3,12 @@ import React from 'react';
 
 import { useProductsStore } from '@/shared/store/products';
 import { useLang } from '@/shared/hooks/useLang';
+import { getNameMultilang } from '@/utils/getNameMulang';
 
 import { SafeGroup } from '@/shared/types/types';
 
 import css from './Breadcrumbs.module.css';
-import { getNameMultilang } from '@/utils/getNameMulang';
+import { ChevronRight } from 'lucide-react';
 
 export const Breadcrumbs: React.FC = () => {
   const activeGroup = useProductsStore(state => state.activeGroup);
@@ -42,10 +43,11 @@ export const Breadcrumbs: React.FC = () => {
       {chainArr &&
         chainArr.map(group => (
           <div
+            className={css.breadcrumbs__item}
             key={group.id}
             onClick={() => useProductsStore.setState({ activeGroup: group })}
           >
-            {`/ `}
+            <ChevronRight className={css.breadcrumbs__icon} />
             <span className={css.breadcrumbs__name}>
               {getNameMultilang(group, lang)}
             </span>

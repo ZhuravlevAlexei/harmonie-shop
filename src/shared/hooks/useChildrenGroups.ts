@@ -14,6 +14,8 @@ export const useChildrenGroups = (parentGroupId: number): ChildrenGroups => {
     item => item.parent_group_id === parentGroupId
   );
 
+  childrenGroups.sort((a, b) => a.name.localeCompare(b.name));
+
   if (childrenGroups.length > 0) {
     return { hasChidrenGroups: true, chlidrenGroupsList: childrenGroups };
   } else {

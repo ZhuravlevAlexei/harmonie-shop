@@ -12,6 +12,7 @@ import { SafeGroup } from '@/shared/types/types';
 
 import css from './LeftSideItem.module.css';
 import { useProductsStore } from '@/shared/store/products';
+import { usePaginationStore } from '@/shared/store/pagination';
 
 interface LestSideItemProps {
   group: SafeGroup;
@@ -23,7 +24,11 @@ export const LeftSideItem: React.FC<LestSideItemProps> = ({ group }) => {
   const groupName = useProductNameMultilang(group).toUpperCase();
 
   const handleMenuClick = () => {
-    useProductsStore.setState({ activeGroup: group });
+    useProductsStore.setState({
+      activeGroup: group,
+      searchText: '',
+    });
+    usePaginationStore.setState({ page: 1 });
   };
 
   return (

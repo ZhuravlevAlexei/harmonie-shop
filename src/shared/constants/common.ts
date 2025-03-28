@@ -11,6 +11,17 @@ import {
   Barcode,
 } from 'lucide-react';
 
+export enum PaginationLimits {
+  LIMIT_12 = 12,
+  LIMIT_24 = 24,
+  LIMIT_36 = 36,
+}
+
+export const SORT_ORDER = {
+  ASC: 'asc',
+  DESC: 'desc',
+};
+
 export enum AllowedLangs {
   UK = 'uk',
   RU = 'ru',

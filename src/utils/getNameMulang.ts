@@ -1,10 +1,10 @@
 import { AllowedLangs } from '@/shared/constants/common';
 import { GroupType } from '@/db/models/group';
 import { ProductType } from '@/db/models/product';
-import { SafeGroup } from '@/shared/types/types';
+import { SafeGroup, SafeProduct } from '@/shared/types/types';
 
 export const getNameMultilang = (
-  product: SafeGroup | GroupType | ProductType,
+  product: SafeGroup | SafeProduct | GroupType | ProductType,
   lang: AllowedLangs
 ): string => {
   let productNameMultilang = '';
