@@ -1,4 +1,4 @@
-import { HiddenGroups } from './../shared/constants/hidden';
+import { HiddenGroups } from '../constants/hidden';
 import { groupsOrderTemplate } from '@/shared/constants/common';
 
 import { GroupType } from '@/db/models/group';
@@ -21,6 +21,10 @@ export const createSafeGroups = (groups: GroupType[]) => {
       ru: root?.name_multilang?.ru || '',
       uk: root?.name_multilang?.uk || '',
     },
+    description_multilang: {
+      ru: root?.description_multilang?.ru || '',
+      uk: root?.description_multilang?.uk || '',
+    },
     image: chooseImage(String(root?.image)) || '',
     parent_group_id: null,
     order: 999,
@@ -36,6 +40,10 @@ export const createSafeGroups = (groups: GroupType[]) => {
     name_multilang: {
       ru: group.name_multilang?.ru || '',
       uk: group.name_multilang?.uk || '',
+    },
+    description_multilang: {
+      ru: group.description_multilang?.ru || '',
+      uk: group.description_multilang?.uk || '',
     },
     image: chooseImage(String(group?.image)) || '',
     parent_group_id: Number(group.parent_group_id),

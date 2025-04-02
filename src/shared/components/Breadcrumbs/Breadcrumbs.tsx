@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useProductsStore } from '@/shared/store/products';
 import { useLang } from '@/shared/hooks/useLang';
-import { getNameMultilang } from '@/utils/getNameMulang';
+import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
 import { SafeGroup } from '@/shared/types/types';
 
@@ -11,8 +11,8 @@ import css from './Breadcrumbs.module.css';
 import { ChevronRight } from 'lucide-react';
 
 export const Breadcrumbs: React.FC = () => {
-  const activeGroup = useProductsStore(state => state.activeGroup);
   const rootGroup = useProductsStore(state => state.rootGroup);
+  const activeGroup = useProductsStore(state => state.activeGroup);
   const groups = useProductsStore(state => state.groups);
   const { lang } = useLang();
 
@@ -21,9 +21,8 @@ export const Breadcrumbs: React.FC = () => {
   if (Number(activeGroup.id) === Number(rootGroup.id)) return <div></div>;
 
   let currentGroup: SafeGroup | undefined;
-
-  const chainArr: SafeGroup[] = [];
-  chainArr.push(activeGroup);
+  const chainArray: SafeGroup[] = [];
+  chainArray.push(activeGroup);
   let currentId: number = Number(activeGroup.parent_group_id);
   let lvl = 0;
   while (currentId !== Number(rootGroup.id) || lvl < 10) {
@@ -34,14 +33,14 @@ export const Breadcrumbs: React.FC = () => {
     }
     currentId = Number(currentGroup.parent_group_id);
     if (Number(currentGroup.id) !== Number(rootGroup.id)) {
-      chainArr.unshift(currentGroup);
+      chainArray.unshift(currentGroup);
     }
   }
 
   return (
     <div className={css.breadcrumbs}>
-      {chainArr &&
-        chainArr.map(group => (
+      {chainArray &&
+        chainArray.map(group => (
           <div
             className={css.breadcrumbs__item}
             key={group.id}

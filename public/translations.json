@@ -5,6 +5,7 @@
       "searchButton": "Пошук!",
       "contacts": "Контакти"
     },
+    "available": "Готово до відправки",
     "pagination_per_page": "Товарів на сторінці:",
     "root_point": "Каталог товарів",
     "nothing_found": "Нічого не знайдено..."
@@ -15,6 +16,7 @@
       "searchButton": "Поиск!",
       "contacts": "Контакты"
     },
+    "available": "Готово к отправке",
     "pagination_per_page": "Товаров на странице:",
     "root_point": "Каталог товара",
     "nothing_found": "Ничего не найдено..."

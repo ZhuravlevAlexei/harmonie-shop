@@ -9,6 +9,10 @@ export const createSafeProducts = (products: ProductType[]): SafeProduct[] => {
       ru: product.name_multilang?.ru || '',
       uk: product.name_multilang?.uk || '',
     },
+    description_multilang: {
+      ru: product.description_multilang?.ru || '',
+      uk: product.description_multilang?.uk || '',
+    },
     selling_type: product.selling_type,
     presence: product.presence,
     in_stock: Boolean(product.in_stock),

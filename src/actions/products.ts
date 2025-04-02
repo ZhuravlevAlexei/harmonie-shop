@@ -1,29 +1,40 @@
 'use server';
 import connectDB from '@/db/connectDB';
-import { ProductsCollection } from '@/db/models/product';
 
 import { SORT_ORDER } from '@/shared/constants/common';
-import { calculatePaginationData } from '@/utils/calculatePaginationData';
-
-import { createSafeProducts } from '@/utils/createSafeProducts';
-import { GroupType } from '@/db/models/group';
-import { PaginationResult } from '@/shared/types/types';
 import { HiddenGroups } from '@/shared/constants/hidden';
 
-export async function hasProductsByGroupId(group: GroupType): Promise<boolean> {
+import { calculatePaginationData } from '@/shared/utils/calculatePaginationData';
+import { createSafeProducts } from '@/shared/utils/createSafeProducts';
+
+import { ProductsCollection, ProductType } from '@/db/models/product';
+import { PaginationResult } from '@/shared/types/types';
+
+// export async function hasProductsByGroupId(group: GroupType): Promise<boolean> {
+//   try {
+//     const groupId = Number(group.id);
+//     await connectDB();
+//     const count = await ProductsCollection.find()
+//       .where('group.id')
+//       .equals(groupId)
+//       .where('status')
+//       .equals('on_display')
+//       .countDocuments();
+//     if (count === 0) {
+//       console.log('count: ', groupId, group.name, count);
+//     }
+//     return count === 0 ? false : true;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
+
+export async function getProductByPromId(id: number): Promise<ProductType> {
   try {
-    const groupId = Number(group.id);
     await connectDB();
-    const count = await ProductsCollection.find()
-      .where('group.id')
-      .equals(groupId)
-      .where('status')
-      .equals('on_display')
-      .countDocuments();
-    if (count === 0) {
-      console.log('count: ', groupId, group.name, count);
-    }
-    return count === 0 ? false : true;
+    const product = await ProductsCollection.findOne({ id: id });
+    return product;
   } catch (error) {
     console.log(error);
     throw error;
@@ -43,10 +54,7 @@ export async function getProductsBySearchText(
       paginationData: {
         page: 1,
         perPage: 12,
-        totalItems: 0,
         totalPages: 0,
-        hasNextPage: false,
-        hasPreviousPage: false,
       },
     };
   }

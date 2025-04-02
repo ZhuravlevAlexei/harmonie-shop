@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { env } from '@/utils/env';
+import { env } from '@/shared/utils/env';
 
 const connectDB = async (): Promise<boolean> => {
   if (mongoose.connections[0].readyState) {

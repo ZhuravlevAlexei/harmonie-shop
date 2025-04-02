@@ -4,6 +4,7 @@ import { ChevronRight } from 'lucide-react';
 
 import { useChildrenGroups } from '@/shared/hooks/useChildrenGroups';
 import { useProductNameMultilang } from '@/shared/hooks/useProductNameMultilang';
+import { useProductsStore } from '@/shared/store/products';
 
 import { DynamicIcon } from '../DynamicIcon/DynamicIcon';
 import { MenuItem } from '../MenuItem/MenuItem';
@@ -11,7 +12,6 @@ import { MenuItem } from '../MenuItem/MenuItem';
 import { SafeGroup } from '@/shared/types/types';
 
 import css from './LeftSideItem.module.css';
-import { useProductsStore } from '@/shared/store/products';
 import { usePaginationStore } from '@/shared/store/pagination';
 
 interface LestSideItemProps {

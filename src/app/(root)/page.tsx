@@ -6,9 +6,15 @@ import { GoodsContainer } from '@/shared/components/GoodsContainer';
 
 import { GroupType } from '@/db/models/group';
 
-import { createSafeGroups } from '@/utils/createSafeGroups';
+import { createSafeGroups } from '@/shared/utils/createSafeGroups';
 
 import css from './page.module.css';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Harmonie Main Page',
+  description: 'Harmonie Shop Main Page',
+};
 
 export default async function Home() {
   const groups = (await getGroups()) as GroupType[];

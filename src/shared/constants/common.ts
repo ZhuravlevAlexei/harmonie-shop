@@ -11,6 +11,10 @@ import {
   Barcode,
 } from 'lucide-react';
 
+export enum ApiRouts {
+  PRODUCT = 'product',
+}
+
 export enum PaginationLimits {
   LIMIT_12 = 12,
   LIMIT_24 = 24,

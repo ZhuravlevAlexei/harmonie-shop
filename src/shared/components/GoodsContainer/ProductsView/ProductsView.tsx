@@ -12,13 +12,24 @@ import {
   getProductsByGroupId,
   getProductsBySearchText,
 } from '@/actions/products';
-import { getNameMultilang } from '@/utils/getNameMulang';
+import { getNameMultilang } from '@/shared/utils/getNameMultilang';
+
+import { PaginationData, SafeProduct } from '@/shared/types/types';
 
 import css from './ProductsView.module.css';
 
 interface ProductsViewProps {
   activeGroupId: number;
 }
+
+const setStates = (products: SafeProduct[], paginationData: PaginationData) => {
+  useProductsStore.setState({ products: products });
+  usePaginationStore.setState({
+    page: paginationData.page,
+    perPage: paginationData.perPage,
+    totalPages: paginationData.totalPages,
+  });
+};
 
 export const ProductsView: React.FC<ProductsViewProps> = ({
   activeGroupId,
@@ -37,15 +48,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
         page,
         perPage
       );
-      useProductsStore.setState({ products: products });
-      usePaginationStore.setState({
-        page: paginationData.page,
-        perPage: paginationData.perPage,
-        totalItems: paginationData.totalItems,
-        totalPages: paginationData.totalPages,
-        hasNextPage: paginationData.hasNextPage,
-        hasPreviousPage: paginationData.hasPreviousPage,
-      });
+      setStates(products, paginationData);
     };
     const getDataBySearchText = async () => {
       const { products, paginationData } = await getProductsBySearchText(
@@ -53,15 +56,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
         page,
         perPage
       );
-      useProductsStore.setState({ products: products });
-      usePaginationStore.setState({
-        page: paginationData.page,
-        perPage: paginationData.perPage,
-        totalItems: paginationData.totalItems,
-        totalPages: paginationData.totalPages,
-        hasNextPage: paginationData.hasNextPage,
-        hasPreviousPage: paginationData.hasPreviousPage,
-      });
+      setStates(products, paginationData);
     };
 
     if (searchText) {
@@ -70,8 +65,6 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
       getDataByGroupId();
     }
   }, [activeGroupId, searchText, page, perPage]);
-
-  // console.log('products: ', products);
 
   return (
     <>
@@ -98,6 +91,11 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                 <div className={css.product__item__price}>
                   {product.price} ₴
                 </div>
+                {product.presence === 'available' && (
+                  <div className={css.product__item__available}>
+                    {translations[lang].available}
+                  </div>
+                )}
                 <div className={css.product__item__name}>
                   {getNameMultilang(product, lang)}
                 </div>

@@ -5,6 +5,10 @@ export type SafeGroup = {
     ru: string;
     uk: string;
   };
+  description_multilang: {
+    ru: string;
+    uk: string;
+  };
   image: string;
   parent_group_id: number | null;
   order: number;
@@ -22,6 +26,10 @@ export type SafeProduct = {
     ru: string;
     uk: string;
   };
+  description_multilang: {
+    ru: string;
+    uk: string;
+  };
   selling_type: string;
   presence: string;
   in_stock: boolean;
@@ -36,10 +44,7 @@ export type SafeProduct = {
 export type PaginationData = {
   page: number;
   perPage: number;
-  totalItems: number;
   totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
 };
 
 export type PaginationResult = {

@@ -9,6 +9,7 @@ import { useProductNameMultilang } from '@/shared/hooks/useProductNameMultilang'
 import { useProductsStore } from '@/shared/store/products';
 
 import css from './MenuItem.module.css';
+import { usePaginationStore } from '@/shared/store/pagination';
 
 interface MenuItemProps {
   group: SafeGroup;
@@ -25,6 +26,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ group }) => {
       activeGroup: group,
       searchText: '',
     });
+    usePaginationStore.setState({ page: 1 });
   };
 
   return (

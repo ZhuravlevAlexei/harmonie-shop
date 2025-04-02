@@ -1,19 +1,22 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+
 import { GroupsView } from '../GroupsView/GroupsView';
+import { ProductsView } from '../ProductsView/ProductsView';
 
 import { useProductsStore } from '@/shared/store/products';
 
 import { SafeGroup } from '@/shared/types/types';
 
 import css from './GoodsContainer.module.css';
-import { ProductsView } from '../ProductsView/ProductsView';
 
 export const GoodsContainer: React.FC = () => {
   const activeGroup = useProductsStore(state => state.activeGroup);
-  const searchText = useProductsStore(state => state.searchText);
+  const searchText = useProductsStore(state => state.searchText).trim();
+
   if (!activeGroup) return <div />;
+
   return (
     <div>
       <div className={css.goods_container}>

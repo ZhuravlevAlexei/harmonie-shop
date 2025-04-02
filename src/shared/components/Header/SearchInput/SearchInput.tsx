@@ -19,15 +19,15 @@ export const SearchInput: React.FC = () => {
     useProductsStore.setState({ searchText: '' });
     useProductsStore.setState({ activeGroup: rootGroup });
     useProductsStore.setState({ products: [] });
-
     setLocalQuery('');
   };
 
   const handleSearch = (query: string) => {
     if (!query) return;
-    setLocalQuery(query);
+
     useProductsStore.setState({ searchText: query });
     useProductsStore.setState({ activeGroup: rootGroup });
+    setLocalQuery(query);
   };
 
   return (

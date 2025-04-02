@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useLangStore } from '@/shared/store/lang';
 import { useProductsStore } from '@/shared/store/products';
-import { getNameMultilang } from '@/utils/getNameMulang';
+import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
 import { SafeGroup } from '@/shared/types/types';
 

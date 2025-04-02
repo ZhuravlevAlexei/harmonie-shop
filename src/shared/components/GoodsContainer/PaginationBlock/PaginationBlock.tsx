@@ -26,7 +26,7 @@ export const PaginationBlock: React.FC = () => {
     <div className={css.pagination__container}>
       <Stack direction="row" spacing={3}>
         <Pagination
-          count={totalPages}
+          count={Math.ceil(totalPages)}
           page={page}
           color="secondary"
           onChange={(event, page) => handlePaginationPageClick(page)}

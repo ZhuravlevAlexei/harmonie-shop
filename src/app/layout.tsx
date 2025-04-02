@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from '@/shared/components/Header/Header/Header';
 import './globalStyles/normalize.css';
@@ -16,6 +17,14 @@ const nunito = Inter({
   // Semibold	600
   // Bold	    700
 });
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Harmonie Shop',
+    template: '%s - Harmonie Shop',
+  },
+  description: 'Harmonie Shop. We sell books, toys, goods for pets, etc...',
+};
 
 export default function RootLayout({
   children,

@@ -22,18 +22,14 @@ export const RootPoint: React.FC<RootPointProps> = ({ rootGroup, groups }) => {
   React.useEffect(() => {
     useProductsStore.setState({ groups: groups });
     useProductsStore.setState({ rootGroup: rootGroup });
-    // useProductsStore.setState({ products: [] });
-
-    // useProductsStore.setState({ searchText: '' }); //не сбрасываем
     if (!searchText) {
       useProductsStore.setState({ activeGroup: rootGroup });
-      usePaginationStore.setState({ page: 1 });
-      usePaginationStore.setState({ totalItems: 0 });
-      usePaginationStore.setState({ totalPages: 0 });
-      usePaginationStore.setState({ hasNextPage: false });
-      usePaginationStore.setState({ hasPreviousPage: false });
+      usePaginationStore.setState({
+        page: 1,
+        totalPages: 0,
+      });
     }
-  }, []);
+  }, [groups, rootGroup, searchText]);
 
   return (
     <div
