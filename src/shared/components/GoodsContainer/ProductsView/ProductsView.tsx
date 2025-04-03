@@ -78,7 +78,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
           products.map(product => (
             <div className={css.product__item} key={product.id}>
               <Link
-                href={`/product/${product.id}`}
+                href={`/products/${product.id}`}
                 className={css.product__item__link}
               >
                 <img

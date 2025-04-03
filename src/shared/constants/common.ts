@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export enum ApiRouts {
-  PRODUCT = 'product',
+  PRODUCTS = '/products',
 }
 
 export enum PaginationLimits {
