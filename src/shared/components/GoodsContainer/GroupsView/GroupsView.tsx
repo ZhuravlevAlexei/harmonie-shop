@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 
 import { useLangStore } from '@/shared/store/lang';
 import { useProductsStore } from '@/shared/store/products';
@@ -35,14 +36,20 @@ export const GroupsView: React.FC<GroupsViewProps> = ({ activeGroup }) => {
             className={css.group_item}
             onClick={() => useProductsStore.setState({ activeGroup: group })}
           >
-            <img
+            {/* <img
               className={css.group_item__image}
               src={group.image}
               alt="Group image"
-              // width={250}
-              // height={220}
               width={150}
               height={140}
+            /> */}
+            <Image
+              className={css.product_item__image}
+              src={group.image as string}
+              alt="Product image"
+              width={150}
+              height={140}
+              priority
             />
             <div className={css.group_item__text}>
               {getNameMultilang(group, lang)}

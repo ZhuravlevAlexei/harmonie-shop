@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { usePaginationStore } from '@/shared/store/pagination';
@@ -81,12 +82,20 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                 href={`/products/${product.id}`}
                 className={css.product__item__link}
               >
-                <img
+                {/* <img
                   className={css.product_item__image}
                   src={product.main_image}
                   alt="Product image"
                   width={250}
                   height={270}
+                /> */}
+                <Image
+                  className={css.product_item__image}
+                  src={product.main_image as string}
+                  alt="Product image"
+                  width={250}
+                  height={270}
+                  priority
                 />
                 <div className={css.product__item__price}>
                   {product.price} ₴

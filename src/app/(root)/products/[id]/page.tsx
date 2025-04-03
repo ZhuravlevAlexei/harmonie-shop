@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
@@ -12,7 +13,7 @@ import { getDescriptionMultilang } from '@/shared/utils/getDescriptionMultilang'
 
 import css from './productPage.module.css';
 
-const baseRroductQuery = `${env('NEXT_PUBLIC_BASE_URL')}${env(
+const baseProductQueryTemplate = `${env('NEXT_PUBLIC_BASE_URL')}${env(
   'NEXT_PUBLIC_API_URL'
 )}${ApiRouts.PRODUCTS}`;
 
@@ -36,7 +37,7 @@ export async function generateMetadata({
   const { id } = await params;
   const lang = await getLanguage();
 
-  const response = await fetch(`${baseRroductQuery}/${id}`);
+  const response = await fetch(`${baseProductQueryTemplate}/${id}`);
   if (!response.ok) {
     throw new Error(`Query error: ${response.status}`);
   }
@@ -75,7 +76,7 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
 
-  const response = await fetch(`${baseRroductQuery}/${id}`);
+  const response = await fetch(`${baseProductQueryTemplate}/${id}`);
   if (response.status === 404) {
     notFound();
   }
@@ -93,9 +94,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {product && (
         <div className={css.product_page__picture}>
           {/* <img src={product?.main_image ?? undefined} alt=" Product image" /> */}
-          <img
+          {/* <img
             src={product?.main_image as string | undefined}
             alt=" Product image"
+          /> */}
+          <Image
+            // className={css.logo}
+            src={product?.main_image as string}
+            alt="Product image"
+            width={200}
+            height={150}
+            priority
           />
         </div>
       )}
