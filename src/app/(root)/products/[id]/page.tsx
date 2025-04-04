@@ -12,6 +12,7 @@ import { env } from '@/shared/utils/env';
 import { getDescriptionMultilang } from '@/shared/utils/getDescriptionMultilang';
 
 import css from './productPage.module.css';
+import { Breadcrumbs } from '@/shared/components';
 
 const baseProductQueryTemplate = `${env('NEXT_PUBLIC_BASE_URL')}${env(
   'NEXT_PUBLIC_API_URL'
@@ -57,19 +58,6 @@ export async function generateMetadata({
     description: descriptionStr,
     keywords: product?.keywords ?? '',
     robots: 'index, follow',
-
-    //reminder: add openGraph image (for socials) if we need in future
-    // openGraph: {
-    //   images: [
-    //     {
-    ////       this url will overwrite openGraph image placed as /app/opengraph-image.png,
-    ////       (22:06 in video https://www.youtube.com/watch?v=wTGVHLyV09M)
-    ////       the image itself (opengraph-image.png) we set 06:00 in video https://www.youtube.com/watch?v=wTGVHLyV09M
-
-    //       url: product?.main_image ?? '',
-    //     },
-    //   ],
-    // },
   };
 }
 
@@ -91,24 +79,24 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className={css.product_page}>
-      {product && (
-        <div className={css.product_page__picture}>
-          {/* <img src={product?.main_image ?? undefined} alt=" Product image" /> */}
-          {/* <img
-            src={product?.main_image as string | undefined}
-            alt=" Product image"
-          /> */}
-          <Image
-            // className={css.logo}
-            src={product?.main_image as string}
-            alt="Product image"
-            width={200}
-            height={150}
-            priority
-          />
-        </div>
-      )}
-      Product {id}
+      <Breadcrumbs />
+      <div className={css.product_page__viewer}>
+        {/* <div></div> */}
+        {/* <img
+          className={css.product_page_viewer__image}
+          src={product?.images[0].url as string}
+          alt="Product image"
+        /> */}
+        <Image
+          className={css.product_page_viewer__image}
+          // src={product?.main_image as string}
+          src={product?.images[0].url as string}
+          alt="Product image"
+          width={300}
+          height={450}
+          priority
+        />
+      </div>
     </div>
   );
 }

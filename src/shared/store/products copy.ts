@@ -6,7 +6,6 @@ import { SafeGroup, SafeProduct } from '../types/types';
 interface ProductsState {
   rootGroup: SafeGroup | null;
   activeGroup: SafeGroup | null;
-  activeProduct: SafeProduct | null;
   searchText: string;
   groups: SafeGroup[];
   products: SafeProduct[];
@@ -22,7 +21,6 @@ export const useProductsStore = create<ProductsState>()(
     set => ({
       rootGroup: null,
       activeGroup: null,
-      activeProduct: null,
       searchText: '',
       groups: [],
       products: [],
@@ -37,7 +35,6 @@ export const useProductsStore = create<ProductsState>()(
       partialize: state => ({
         rootGroup: state.rootGroup,
         activeGroup: state.activeGroup,
-        activeProduct: state.activeProduct,
         searchText: state.searchText,
         groups: state.groups,
         products: state.products,

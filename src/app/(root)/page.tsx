@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { getGroups } from '@/actions/groups';
 
 import { Breadcrumbs, RootPoint } from '@/shared/components';
@@ -9,16 +11,15 @@ import { GroupType } from '@/db/models/group';
 import { createSafeGroups } from '@/shared/utils/createSafeGroups';
 
 import css from './page.module.css';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Harmonie Main Page',
-  description: 'Harmonie Shop Main Page',
+  title: 'Інтернет-магазин',
+  description:
+    'Найкращі книги, іграшки, товари для спорту та туризму, товари для тварин...',
 };
 
 export default async function Home() {
   const groups = (await getGroups()) as GroupType[];
-
   const { rootGroup, workGroups, firstLvlGroups } = createSafeGroups(groups);
 
   return (

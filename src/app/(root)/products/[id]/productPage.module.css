@@ -1,8 +1,26 @@
 .product_page {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: 50px 2fr;
+
   grid-template-areas:
-    'picture product'
-    'picture product';
+    'breadcrumbs breadcrumbs'
+    'viewer product';
   column-gap: 10px;
+}
+
+.product_page__viewer {
+  grid-area: viewer;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 500px 1fr;
+  grid-template-areas: 'thumbs picture';
+  column-gap: 10px;
+}
+
+.product_page_viewer__image {
+  grid-area: picture;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

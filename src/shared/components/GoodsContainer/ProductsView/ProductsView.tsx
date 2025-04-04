@@ -36,11 +36,16 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   activeGroupId,
 }) => {
   const { lang, translations } = useLang();
+  const groups = useProductsStore(state => state.groups);
   const products = useProductsStore(state => state.products);
   const searchText = useProductsStore(state => state.searchText);
   const page = usePaginationStore(state => state.page);
   const perPage = usePaginationStore(state => state.perPage);
   const totalPages = usePaginationStore(state => state.totalPages);
+
+  const localGroups = groups.filter(
+    group => group.parent_group_id === activeGroupId
+  );
 
   React.useEffect(() => {
     const getDataByGroupId = async () => {
@@ -67,11 +72,20 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
     }
   }, [activeGroupId, searchText, page, perPage]);
 
+  const handleClickLink = (product: SafeProduct) => {
+    useProductsStore.setState({ activeProduct: product });
+  };
+
   return (
     <>
       {searchText && products.length === 0 && (
         <div>{translations[lang].nothing_found}</div>
       )}
+
+      {!searchText && products.length === 0 && localGroups.length === 0 && (
+        <div>{translations[lang].no_available_products}</div>
+      )}
+
       {products.length > 0 && totalPages > 1 && <PaginationBlock />}
 
       <div className={css.products__list}>
@@ -81,14 +95,8 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
               <Link
                 href={`/products/${product.id}`}
                 className={css.product__item__link}
+                onClick={() => handleClickLink(product)}
               >
-                {/* <img
-                  className={css.product_item__image}
-                  src={product.main_image}
-                  alt="Product image"
-                  width={250}
-                  height={270}
-                /> */}
                 <Image
                   className={css.product_item__image}
                   src={product.main_image as string}

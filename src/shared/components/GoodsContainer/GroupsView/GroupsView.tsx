@@ -36,13 +36,6 @@ export const GroupsView: React.FC<GroupsViewProps> = ({ activeGroup }) => {
             className={css.group_item}
             onClick={() => useProductsStore.setState({ activeGroup: group })}
           >
-            {/* <img
-              className={css.group_item__image}
-              src={group.image}
-              alt="Group image"
-              width={150}
-              height={140}
-            /> */}
             <Image
               className={css.product_item__image}
               src={group.image as string}

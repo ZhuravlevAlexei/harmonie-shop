@@ -1,5 +1,7 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { ChevronRight, House } from 'lucide-react';
 
 import { useProductsStore } from '@/shared/store/products';
 import { useLang } from '@/shared/hooks/useLang';
@@ -8,11 +10,12 @@ import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 import { SafeGroup } from '@/shared/types/types';
 
 import css from './Breadcrumbs.module.css';
-import { ChevronRight } from 'lucide-react';
 
 export const Breadcrumbs: React.FC = () => {
+  const router = useRouter();
   const rootGroup = useProductsStore(state => state.rootGroup);
   const activeGroup = useProductsStore(state => state.activeGroup);
+  const activeProduct = useProductsStore(state => state.activeProduct);
   const groups = useProductsStore(state => state.groups);
   const { lang } = useLang();
 
@@ -36,6 +39,13 @@ export const Breadcrumbs: React.FC = () => {
       chainArray.unshift(currentGroup);
     }
   }
+  chainArray.unshift(rootGroup);
+
+  const handleBreadcrumbsClick = (group: SafeGroup) => {
+    useProductsStore.setState({ activeGroup: group });
+    useProductsStore.setState({ activeProduct: null });
+    router.push(`/`);
+  };
 
   return (
     <div className={css.breadcrumbs}>
@@ -44,14 +54,27 @@ export const Breadcrumbs: React.FC = () => {
           <div
             className={css.breadcrumbs__item}
             key={group.id}
-            onClick={() => useProductsStore.setState({ activeGroup: group })}
+            onClick={() => handleBreadcrumbsClick(group)}
           >
-            <ChevronRight className={css.breadcrumbs__icon} />
-            <span className={css.breadcrumbs__name}>
-              {getNameMultilang(group, lang)}
-            </span>
+            {group.id === rootGroup.id && <House size={26} color={'#daa520'} />}
+            {group.id !== rootGroup.id && (
+              <>
+                <ChevronRight className={css.breadcrumbs__icon} />
+                <span className={css.breadcrumbs__name}>
+                  {getNameMultilang(group, lang)}
+                </span>
+              </>
+            )}
           </div>
         ))}
+      {activeProduct && (
+        <>
+          <ChevronRight className={css.breadcrumbs__icon} />
+          <span className={css.breadcrumbs__product}>
+            {getNameMultilang(activeProduct, lang)}
+          </span>
+        </>
+      )}
     </div>
   );
 };

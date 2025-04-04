@@ -20,8 +20,8 @@ const nunito = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Harmonie Shop',
-    template: '%s - Harmonie Shop',
+    default: 'Harmonie',
+    template: '%s - Harmonie',
   },
   description: 'Harmonie Shop. We sell books, toys, goods for pets, etc...',
 };
