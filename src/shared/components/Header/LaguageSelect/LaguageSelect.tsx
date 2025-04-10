@@ -13,7 +13,7 @@ export const LaguageSelect: React.FC = () => {
     document.cookie = `harmonie_lang=${event.target.value}; path=/; max-age=${
       60 * 60 * 24 * 365
     }`;
-    // window.location.reload(); // Перезагружаем страницу, если нужен перевод контента - не нада!!!
+    window.location.reload(); // Перезагружаем страницу, если нужен перевод контента !!!
   };
 
   React.useEffect(() => {

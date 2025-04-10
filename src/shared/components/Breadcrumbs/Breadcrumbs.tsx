@@ -10,6 +10,7 @@ import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 import { SafeGroup } from '@/shared/types/types';
 
 import css from './Breadcrumbs.module.css';
+import { usePaginationStore } from '@/shared/store/pagination';
 
 export const Breadcrumbs: React.FC = () => {
   const router = useRouter();
@@ -42,9 +43,21 @@ export const Breadcrumbs: React.FC = () => {
   chainArray.unshift(rootGroup);
 
   const handleBreadcrumbsClick = (group: SafeGroup) => {
-    useProductsStore.setState({ activeGroup: group });
-    useProductsStore.setState({ activeProduct: null });
     router.push(`/`);
+
+    useProductsStore.setState({
+      activeProduct: null,
+      searchText: '',
+    });
+    if (group.id !== activeGroup.id) {
+      useProductsStore.setState({
+        activeGroup: group,
+      });
+      usePaginationStore.setState({
+        page: 1,
+        totalPages: 0,
+      });
+    }
   };
 
   return (

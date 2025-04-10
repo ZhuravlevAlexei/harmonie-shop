@@ -23,7 +23,7 @@
 }
 
 .product_item__image {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .product__item__price {

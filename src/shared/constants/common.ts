@@ -13,6 +13,7 @@ import {
 
 export enum ApiRouts {
   PRODUCTS = '/products',
+  PRODUCTS_DATA = '/products/data',
 }
 
 export enum PaginationLimits {

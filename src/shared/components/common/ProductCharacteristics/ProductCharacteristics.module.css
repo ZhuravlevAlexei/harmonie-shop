@@ -1,0 +1,22 @@
+.product__characteristics__title {
+  margin-bottom: 10px;
+}
+
+.product__characteristics {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.product__characteristics__item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 400px;
+}
+
+.product__characteristics__item__name {
+  width: 170px;
+  font-weight: 600;
+}

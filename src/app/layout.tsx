@@ -23,7 +23,8 @@ export const metadata: Metadata = {
     default: 'Harmonie',
     template: '%s - Harmonie',
   },
-  description: 'Harmonie Shop. We sell books, toys, goods for pets, etc...',
+  description:
+    'Найкращі книги, іграшки, товари для спорту та туризму, товари для тварин...',
 };
 
 export default function RootLayout({

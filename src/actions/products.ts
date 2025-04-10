@@ -52,7 +52,9 @@ export async function getProductsBySearchText(
       'group.id': { $nin: HiddenGroups },
     })
       .where('status')
-      .equals('on_display');
+      .equals('on_display')
+      .where('presence')
+      .equals('available');
 
     const [productsCount, products] = await Promise.all([
       ProductsCollection.find().merge(productsQuery).countDocuments(),
@@ -76,7 +78,6 @@ export async function getProductsBySearchText(
     throw error;
   }
 }
-
 export async function getProductsByGroupId(
   groupId: number,
   page = 1,
@@ -94,7 +95,9 @@ export async function getProductsByGroupId(
       .where('group.id')
       .equals(groupId)
       .where('status')
-      .equals('on_display');
+      .equals('on_display')
+      .where('presence')
+      .equals('available');
 
     const [productsCount, products] = await Promise.all([
       ProductsCollection.find().merge(productsQuery).countDocuments(),

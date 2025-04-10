@@ -7,14 +7,16 @@ import { getLanguage } from '@/shared/utils/getLanguage';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
 import { ApiRouts } from '@/shared/constants/common';
+import { ProductDescription } from '@/shared/components/common';
+import { ProductCharacteristics } from '@/shared/components/common';
 
 import { env } from '@/shared/utils/env';
 import { getDescriptionMultilang } from '@/shared/utils/getDescriptionMultilang';
-
-import css from './productPage.module.css';
 import { Breadcrumbs } from '@/shared/components';
 
-const baseProductQueryTemplate = `${env('NEXT_PUBLIC_BASE_URL')}${env(
+import css from './productPage.module.css';
+
+const baseProductQuery = `${env('NEXT_PUBLIC_BASE_URL')}${env(
   'NEXT_PUBLIC_API_URL'
 )}${ApiRouts.PRODUCTS}`;
 
@@ -38,7 +40,7 @@ export async function generateMetadata({
   const { id } = await params;
   const lang = await getLanguage();
 
-  const response = await fetch(`${baseProductQueryTemplate}/${id}`);
+  const response = await fetch(`${baseProductQuery}/${id}`);
   if (!response.ok) {
     throw new Error(`Query error: ${response.status}`);
   }
@@ -64,7 +66,8 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
 
-  const response = await fetch(`${baseProductQueryTemplate}/${id}`);
+  //product
+  const response = await fetch(`${baseProductQuery}/${id}`);
   if (response.status === 404) {
     notFound();
   }
@@ -77,26 +80,39 @@ export default async function ProductPage({ params }: ProductPageProps) {
     throw new Error(`Query error - product not found: ${response.status}`);
   }
 
+  //product data
+  const baseDataQuery = `${env('NEXT_PUBLIC_BASE_URL')}${env(
+    'NEXT_PUBLIC_API_URL'
+  )}${ApiRouts.PRODUCTS_DATA}`;
+  const dataResponse = await fetch(`${baseDataQuery}/${id}`);
+  const { productData } = await dataResponse.json();
+  // console.log('productData: ', productData);
+
   return (
-    <div className={css.product_page}>
-      <Breadcrumbs />
-      <div className={css.product_page__viewer}>
-        {/* <div></div> */}
-        {/* <img
+    <>
+      <div className={css.product_page}>
+        <Breadcrumbs />
+        <div className={css.product_page__viewer}>
+          {/* <img
           className={css.product_page_viewer__image}
           src={product?.images[0].url as string}
           alt="Product image"
         /> */}
-        <Image
-          className={css.product_page_viewer__image}
-          // src={product?.main_image as string}
-          src={product?.images[0].url as string}
-          alt="Product image"
-          width={300}
-          height={450}
-          priority
-        />
+          <Image
+            className={css.product_page_viewer__image}
+            src={product?.main_image as string}
+            // src={product?.images[0].url as string}
+            alt="Product image"
+            width={500}
+            height={500}
+            priority
+          />
+        </div>
       </div>
-    </div>
+      {productData.params.length > 0 && (
+        <ProductCharacteristics productData={productData} />
+      )}
+      <ProductDescription product={product} />
+    </>
   );
 }

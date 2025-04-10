@@ -1,4 +1,4 @@
-import { getProductByPromId } from '@/actions/products';
+import { getProductDataByPromId } from '@/actions/productsData';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
@@ -6,13 +6,15 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const awaitedParams = await Promise.resolve(params);
+  console.log('params id: ', awaitedParams.id);
+
   try {
     const id = Number(awaitedParams.id);
-    const product = await getProductByPromId(id);
+    const productData = await getProductDataByPromId(id);
 
-    return NextResponse.json({ product });
+    return NextResponse.json({ productData });
   } catch (e) {
-    console.log('Server error [id] ', e);
+    console.log('Server error DATA [id] ', e);
   }
 
   return NextResponse.json({});

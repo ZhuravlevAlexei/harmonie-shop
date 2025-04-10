@@ -48,6 +48,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   );
 
   React.useEffect(() => {
+    // console.log('ProductsView', page, perPage);
     const getDataByGroupId = async () => {
       const { products, paginationData } = await getProductsByGroupId(
         activeGroupId,
@@ -110,7 +111,9 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                 </div>
                 {product.presence === 'available' && (
                   <div className={css.product__item__available}>
-                    {translations[lang].available}
+                    {product.in_stock
+                      ? translations[lang].product.in_stock
+                      : translations[lang].product.available}
                   </div>
                 )}
                 <div className={css.product__item__name}>

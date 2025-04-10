@@ -8,7 +8,6 @@ import { useLang } from '@/shared/hooks/useLang';
 import { useProductsStore } from '@/shared/store/products';
 
 import css from './RootPoint.module.css';
-import { usePaginationStore } from '@/shared/store/pagination';
 
 interface RootPointProps {
   rootGroup: SafeGroup;
@@ -24,13 +23,11 @@ export const RootPoint: React.FC<RootPointProps> = ({ rootGroup, groups }) => {
     useProductsStore.setState({ groups: groups });
     useProductsStore.setState({ rootGroup: rootGroup });
     if (!searchText) {
-      if (!activeGroup) useProductsStore.setState({ activeGroup: rootGroup });
-      usePaginationStore.setState({
-        page: 1,
-        totalPages: 0,
-      });
+      if (!activeGroup) {
+        useProductsStore.setState({ activeGroup: rootGroup });
+      }
     }
-  }, [groups, rootGroup, searchText]);
+  }, [groups, rootGroup, searchText, activeGroup]);
 
   return (
     <div
