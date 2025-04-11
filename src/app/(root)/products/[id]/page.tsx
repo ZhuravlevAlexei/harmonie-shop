@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
@@ -7,7 +6,11 @@ import { getLanguage } from '@/shared/utils/getLanguage';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
 import { ApiRouts } from '@/shared/constants/common';
-import { ProductDescription } from '@/shared/components/common';
+import {
+  ProductDescription,
+  ProductGallery,
+  ProductPriceAndAction,
+} from '@/shared/components/common';
 import { ProductCharacteristics } from '@/shared/components/common';
 
 import { env } from '@/shared/utils/env';
@@ -65,6 +68,7 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
+  const lang = await getLanguage();
 
   //product
   const response = await fetch(`${baseProductQuery}/${id}`);
@@ -86,33 +90,61 @@ export default async function ProductPage({ params }: ProductPageProps) {
   )}${ApiRouts.PRODUCTS_DATA}`;
   const dataResponse = await fetch(`${baseDataQuery}/${id}`);
   const { productData } = await dataResponse.json();
-  // console.log('productData: ', productData);
+
+  //images
+  let images: { original: string; thumbnail: string }[] = [];
+  if (productData.images.length > 0) {
+    images = productData.images.map((image: string) => {
+      return {
+        original: image,
+        thumbnail: image,
+      };
+    });
+  } else {
+    images = product.images.map(
+      (image: { url: string; thumbnail_url: string; id: number }) => {
+        return {
+          original: image.url,
+          thumbnail: image.thumbnail_url,
+        };
+      }
+    );
+  }
 
   return (
     <>
       <div className={css.product_page}>
         <Breadcrumbs />
+        <div className={css.product_page__name}>
+          <h3>{getNameMultilang(product, lang)}</h3>
+        </div>
         <div className={css.product_page__viewer}>
-          {/* <img
-          className={css.product_page_viewer__image}
-          src={product?.images[0].url as string}
-          alt="Product image"
-        /> */}
-          <Image
-            className={css.product_page_viewer__image}
-            src={product?.main_image as string}
-            // src={product?.images[0].url as string}
-            alt="Product image"
-            width={500}
-            height={500}
-            priority
-          />
+          <ProductGallery images={images} />
+        </div>
+        <div className={css.product_page__product}>
+          <ProductPriceAndAction id={id} />
+          {productData.params.length > 0 && (
+            <ProductCharacteristics productData={productData} />
+          )}
         </div>
       </div>
-      {productData.params.length > 0 && (
-        <ProductCharacteristics productData={productData} />
-      )}
       <ProductDescription product={product} />
     </>
   );
 }
+
+// import Image from 'next/image';
+//   <img
+//   className={css.product_page_viewer__image}
+//   src={product?.images[0].url as string}
+//   alt="Product image"
+// />
+//   <Image
+//     className={css.product_page_viewer__image}
+//     src={product?.main_image as string}
+//     // src={product?.images[0].url as string}
+//     alt="Product image"
+//     width={500}
+//     height={500}
+//     priority
+//   />

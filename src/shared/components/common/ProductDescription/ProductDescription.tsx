@@ -18,16 +18,19 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = async ({
   const lang = await getLanguage();
 
   return (
-    <div>
-      <h2 className={css.product__description__title}>
-        {translations[lang].product.description}
-      </h2>
-      <div
-        className={css.product__description}
-        dangerouslySetInnerHTML={{
-          __html: getDescriptionMultilang(product, lang),
-        }}
-      />
-    </div>
+    <>
+      <div className={css.product__description__wrapper}>
+        <h2 className={css.product__description__title}>
+          {translations[lang].product.description}
+        </h2>
+        <div
+          className={css.product__description}
+          dangerouslySetInnerHTML={{
+            __html: getDescriptionMultilang(product, lang),
+          }}
+        />
+      </div>
+      <div style={{ height: '10px' }}></div>
+    </>
   );
 };

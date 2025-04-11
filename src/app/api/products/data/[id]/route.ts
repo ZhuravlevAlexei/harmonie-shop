@@ -6,7 +6,6 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const awaitedParams = await Promise.resolve(params);
-  console.log('params id: ', awaitedParams.id);
 
   try {
     const id = Number(awaitedParams.id);

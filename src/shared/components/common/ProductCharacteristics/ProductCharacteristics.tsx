@@ -40,7 +40,7 @@ export const ProductCharacteristics: React.FC<
   }
 
   return (
-    <div>
+    <div className={css.product__characteristics__wrapper}>
       <h2 className={css.product__characteristics__title}>
         {translations[lang].product.characteristics}
       </h2>
