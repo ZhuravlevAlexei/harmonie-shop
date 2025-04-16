@@ -15,10 +15,16 @@ import { usePaginationStore } from '@/shared/store/pagination';
 export const Breadcrumbs: React.FC = () => {
   const router = useRouter();
   const rootGroup = useProductsStore(state => state.rootGroup);
-  const activeGroup = useProductsStore(state => state.activeGroup);
+  let activeGroup = useProductsStore(state => state.activeGroup);
   const activeProduct = useProductsStore(state => state.activeProduct);
+  const searchText = useProductsStore(state => state.searchText);
   const groups = useProductsStore(state => state.groups);
   const { lang } = useLang();
+
+  if (searchText) {
+    activeGroup =
+      groups.find(group => group.id === activeProduct?.groupId) || null;
+  }
 
   if (!rootGroup) return <div></div>;
   if (!activeGroup) return <div></div>;
@@ -40,7 +46,9 @@ export const Breadcrumbs: React.FC = () => {
       chainArray.unshift(currentGroup);
     }
   }
-  chainArray.unshift(rootGroup);
+  if (Number(activeGroup.id) !== Number(rootGroup.id)) {
+    chainArray.unshift(rootGroup);
+  }
 
   const handleBreadcrumbsClick = (group: SafeGroup) => {
     router.push(`/`);

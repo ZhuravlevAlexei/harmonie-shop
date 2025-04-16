@@ -51,3 +51,9 @@ export type PaginationResult = {
   products: SafeProduct[];
   paginationData: PaginationData;
 };
+
+export type CartStateItem = {
+  product: SafeProduct;
+  quantity: number;
+  price: number;
+};

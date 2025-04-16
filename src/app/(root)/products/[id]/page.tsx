@@ -17,7 +17,7 @@ import { env } from '@/shared/utils/env';
 import { getDescriptionMultilang } from '@/shared/utils/getDescriptionMultilang';
 import { Breadcrumbs } from '@/shared/components';
 
-import css from './productPage.module.css';
+import css from './page-product.module.css';
 
 const baseProductQuery = `${env('NEXT_PUBLIC_BASE_URL')}${env(
   'NEXT_PUBLIC_API_URL'
@@ -132,19 +132,3 @@ export default async function ProductPage({ params }: ProductPageProps) {
     </>
   );
 }
-
-// import Image from 'next/image';
-//   <img
-//   className={css.product_page_viewer__image}
-//   src={product?.images[0].url as string}
-//   alt="Product image"
-// />
-//   <Image
-//     className={css.product_page_viewer__image}
-//     src={product?.main_image as string}
-//     // src={product?.images[0].url as string}
-//     alt="Product image"
-//     width={500}
-//     height={500}
-//     priority
-//   />

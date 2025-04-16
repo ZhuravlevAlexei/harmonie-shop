@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { usePaginationStore } from '@/shared/store/pagination';
@@ -18,6 +19,9 @@ import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 import { PaginationData, SafeProduct } from '@/shared/types/types';
 
 import css from './ProductsView.module.css';
+import { Button } from '../../common/Button/Button';
+import { useCartStore } from '@/shared/store/cart';
+import { useShallow } from 'zustand/react/shallow';
 
 interface ProductsViewProps {
   activeGroupId: number;
@@ -35,20 +39,33 @@ const setStates = (products: SafeProduct[], paginationData: PaginationData) => {
 export const ProductsView: React.FC<ProductsViewProps> = ({
   activeGroupId,
 }) => {
+  const [tik, setTik] = React.useState(0);
   const { lang, translations } = useLang();
-  const groups = useProductsStore(state => state.groups);
-  const products = useProductsStore(state => state.products);
-  const searchText = useProductsStore(state => state.searchText);
-  const page = usePaginationStore(state => state.page);
-  const perPage = usePaginationStore(state => state.perPage);
-  const totalPages = usePaginationStore(state => state.totalPages);
+  const [groups, products, searchText] = useProductsStore(
+    useShallow(state => [state.groups, state.products, state.searchText])
+  );
+  const [page, perPage, totalPages] = usePaginationStore(
+    useShallow(state => [state.page, state.perPage, state.totalPages])
+  );
+  // const addCartItem = useCartStore(state => state.addCartItem);
+
+  const [productInCart, addCartItem] = useCartStore(
+    useShallow(state => [state.productInCart, state.addCartItem])
+  );
+
+  // testing cart
+  //cart data, temporary, just for testing
+  // const [totalQty, items, addCartItem] = useCartStore(
+  //   useShallow(state => [state.totalQty, state.items, state.addCartItem])
+  // );
+  // console.log('totalQty: ', totalQty);
+  // console.log('cartItems: ', items);
 
   const localGroups = groups.filter(
     group => group.parent_group_id === activeGroupId
   );
 
   React.useEffect(() => {
-    // console.log('ProductsView', page, perPage);
     const getDataByGroupId = async () => {
       const { products, paginationData } = await getProductsByGroupId(
         activeGroupId,
@@ -77,6 +94,17 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
     useProductsStore.setState({ activeProduct: product });
   };
 
+  const handleAddToCart = (product: SafeProduct) => {
+    addCartItem(product);
+    setTik(tik + 1);
+    console.log('tik: ', tik);
+    toast.success(
+      `${getNameMultilang(product, lang)} ${
+        translations[lang].cart.added_to_cart
+      }.`
+    );
+  };
+
   return (
     <>
       {searchText && products.length === 0 && (
@@ -87,7 +115,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
         <div>{translations[lang].no_available_products}</div>
       )}
 
-      {products.length > 0 && totalPages > 1 && <PaginationBlock />}
+      {totalPages > 0 && <PaginationBlock />}
 
       <div className={css.products__list}>
         {products.length > 0 &&
@@ -116,14 +144,26 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                       : translations[lang].product.available}
                   </div>
                 )}
-                <div className={css.product__item__name}>
+
+                <div
+                  className={css.product__item__name}
+                  title={getNameMultilang(product, lang)}
+                >
                   {getNameMultilang(product, lang)}
                 </div>
               </Link>
+              <Button
+                className={css.product__item__button}
+                onClick={() => handleAddToCart(product)}
+              >
+                {productInCart(product)
+                  ? translations[lang].cart.already_in_cart
+                  : translations[lang].cart.buy}
+              </Button>
             </div>
           ))}
       </div>
-      {products.length > 0 && totalPages > 1 && <PaginationBlock />}
+      {totalPages > 0 && <PaginationBlock />}
     </>
   );
 };

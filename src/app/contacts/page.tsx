@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   description: 'About Harmonie Shop',
 };
 
-export default function ContactsPage() {
+export default async function ContactsPage() {
   return <div>А тут будут наши контакты !!!!</div>;
 }

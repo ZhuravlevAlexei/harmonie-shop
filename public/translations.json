@@ -1,9 +1,9 @@
 {
   "uk": {
     "header": {
+      "contacts": "Контакти",
       "search": "Пошук товарів...",
-      "searchButton": "Пошук!",
-      "contacts": "Контакти"
+      "searchButton": "Пошук!"
     },
     "product": {
       "available": "В наявності",
@@ -11,22 +11,38 @@
       "description": "Опис",
       "in_stock": "Готовий до відправки"
     },
+    "cart": {
+      "added_to_cart": "додан до кошика",
+      "already_in_cart": "Вже у кошику",
+      "buy": "Купити",
+      "empty": "Кошик порожній",
+      "title": "Кошик",
+      "total": "Разом"
+    },
     "no_available_products": "Нажаль у поточній групі зараз немає товарів готових до відправки. Оберіть іншу групу, або змініть пошуковий запит.",
+    "nothing_found": "Нічого не знайдено...",
     "pagination_per_page": "Товарів на сторінці:",
-    "root_point": "Каталог товарів",
-    "nothing_found": "Нічого не знайдено..."
+    "root_point": "Каталог товарів"
   },
   "ru": {
     "header": {
+      "contacts": "Контакты",
       "search": "Поиск товаров...",
-      "searchButton": "Поиск!",
-      "contacts": "Контакты"
+      "searchButton": "Поиск!"
     },
     "product": {
       "available": "В наличии",
       "characteristics": "Характеристики",
       "description": "Описание",
       "in_stock": "Готов к отправке"
+    },
+    "cart": {
+      "added_to_cart": "добавлен в корзину",
+      "already_in_cart": "Уже в корзине",
+      "buy": "Купить",
+      "empty": "Корзина пуста",
+      "title": "Корзина",
+      "total": "Всего"
     },
     "no_available_products": "К сожалению в текущей группе сейчас нет товаров готовых к отправке. Выберите другую группу, или измените поисковый запрос.",
     "pagination_per_page": "Товаров на странице:",

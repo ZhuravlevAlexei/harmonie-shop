@@ -1,7 +1,8 @@
 :root {
   --main-black-color: #000;
   --main-white-color: #fff;
-  --main-backgroung-gray-color: #f5f5f5;
+  --main-backgroung-gray-color: #e9e4e4;
+  /* --main-backgroung-gray-color: #f5f5f5; */
   --main-goldenrod-color: #daa520;
   --orange-star-color: #ffb547;
 }
@@ -35,4 +36,14 @@ nextjs-portal {
 .not-found-page__message {
   font-size: 20px;
   font-weight: 400;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }

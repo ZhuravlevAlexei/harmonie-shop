@@ -25,14 +25,17 @@
   padding-left: 40px;
   background-color: var(--main-backgroung-gray-color);
   border: none;
+  border-radius: 10px;
 }
 
 .resetTextButton {
   position: absolute;
   right: 95px;
   height: 25px;
+  border-radius: 5px;
   cursor: pointer;
 }
+
 .searchButton {
   position: absolute;
   right: 0px;

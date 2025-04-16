@@ -1,10 +1,12 @@
 export const toastOptions = {
+  duration: 3000,
   style: {
     padding: '16px',
     fontWeight: '700',
     color: 'white',
     borderRadius: '15px',
-    backgroundColor: '#323F47',
+    // backgroundColor: '#323F47',
+    backgroundColor: 'green',
   },
   success: {
     iconTheme: {

@@ -40,7 +40,7 @@ export const useProductsStore = create<ProductsState>()(
         activeProduct: state.activeProduct,
         searchText: state.searchText,
         groups: state.groups,
-        products: state.products,
+        // products: state.products,
       }), // Указываем, какие поля сохранять
     }
   )

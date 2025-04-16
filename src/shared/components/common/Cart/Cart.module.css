@@ -1,0 +1,21 @@
+.cart_wrapper {
+  padding-left: 40px;
+}
+
+.cart__title {
+  background-color: var(--main-backgroung-gray-color);
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart__total {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  padding: 10px 275px 10px 0;
+  font-size: 22px;
+  font-weight: 600;
+}

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 
 export enum ApiRouts {
+  CART = '/cart',
   PRODUCTS = '/products',
   PRODUCTS_DATA = '/products/data',
 }
@@ -22,15 +23,15 @@ export enum PaginationLimits {
   LIMIT_36 = 36,
 }
 
-export const SORT_ORDER = {
-  ASC: 'asc',
-  DESC: 'desc',
-};
-
 export enum AllowedLangs {
   UK = 'uk',
   RU = 'ru',
 }
+
+export const SORT_ORDER = {
+  ASC: 'asc',
+  DESC: 'desc',
+};
 
 export const groupsOrderTemplate = [
   { order: 100, icon: BookOpen, id: 12045092, name: 'КНИГИ' },

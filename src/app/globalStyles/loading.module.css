@@ -1,0 +1,8 @@
+.root_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  height: calc(100vh - 150px);
+}

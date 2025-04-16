@@ -9,7 +9,6 @@ export async function GET(
   try {
     const id = Number(awaitedParams.id);
     const product = await getProductByPromId(id);
-
     return NextResponse.json({ product });
   } catch (e) {
     console.log('Server error [id] ', e);

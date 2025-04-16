@@ -10,6 +10,19 @@ import { createSafeProducts } from '@/shared/utils/createSafeProducts';
 import { ProductsCollection, ProductType } from '@/db/models/product';
 import { PaginationResult } from '@/shared/types/types';
 
+export async function getProductsForCart(
+  itemsIds: number[]
+): Promise<ProductType[]> {
+  try {
+    await connectDB();
+    const product = await ProductsCollection.find({ id: { $in: itemsIds } });
+    return product;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getProductByPromId(id: number): Promise<ProductType> {
   try {
     await connectDB();
@@ -122,53 +135,3 @@ export async function getProductsByGroupId(
     throw error;
   }
 }
-
-// export async function getEmptyGroupsIds(): Promise<number[]> {
-//   try {
-//     await connectDB();
-//     const groupsWithOnDisplayProducts = await ProductsCollection.aggregate([
-//       {
-//         $match: { status: 'on_display' }, // Фильтруем только товары со статусом 'on_display'
-//       },
-//       {
-//         $group: {
-//           _id: '$group.id', // Группируем по group.id (собираем уникальные значения)
-//         },
-//       },
-//       {
-//         $project: {
-//           _id: 0,
-//           groupId: '$_id', // Переименовываем поле _id -> groupId для удобства
-//         },
-//       },
-//     ]);
-
-//     // console.log(groupsWithOnDisplayProducts);
-//     const groupIdsArray = groupsWithOnDisplayProducts.map(item => item.groupId);
-
-//     return groupIdsArray;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
-
-// export async function hasProductsByGroupId(group: GroupType): Promise<boolean> {
-//   try {
-//     const groupId = Number(group.id);
-//     await connectDB();
-//     const count = await ProductsCollection.find()
-//       .where('group.id')
-//       .equals(groupId)
-//       .where('status')
-//       .equals('on_display')
-//       .countDocuments();
-//     // if (count === 0) {
-//     //   console.log('count: ', groupId, group.name, count);
-//     // }
-//     return count === 0 ? false : true;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
