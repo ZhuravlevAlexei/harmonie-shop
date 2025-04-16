@@ -8,7 +8,7 @@
 .nav__link {
   font-size: 18px;
   font-weight: 500;
-  color: var(--main-goldenrod-color);
+  color: var(--goldenrod-color);
   text-decoration: none;
   &:hover {
     color: var(--orange-star-color);

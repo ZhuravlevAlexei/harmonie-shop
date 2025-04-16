@@ -19,3 +19,23 @@
   font-size: 22px;
   font-weight: 600;
 }
+
+.cart__buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 100px 10px 100px;
+}
+
+.cart__button {
+  width: 250px;
+  height: 35px;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--button-background-color);
+  border: none;
+  cursor: pointer;
+}

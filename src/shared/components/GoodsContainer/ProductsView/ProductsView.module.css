@@ -62,7 +62,7 @@
   color: white;
   text-align: center;
   border-radius: 6px;
-  background-color: #21413b;
+  background-color: var(--button-background-color);
   border: none;
   cursor: pointer;
 }

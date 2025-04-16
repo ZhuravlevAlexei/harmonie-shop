@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation';
 import { ChevronRight, House } from 'lucide-react';
 
 import { useProductsStore } from '@/shared/store/products';
+import { usePaginationStore } from '@/shared/store/pagination';
 import { useLang } from '@/shared/hooks/useLang';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
 import { SafeGroup } from '@/shared/types/types';
 
 import css from './Breadcrumbs.module.css';
-import { usePaginationStore } from '@/shared/store/pagination';
 
 export const Breadcrumbs: React.FC = () => {
   const router = useRouter();

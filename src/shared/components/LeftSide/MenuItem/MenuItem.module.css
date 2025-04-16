@@ -9,7 +9,7 @@
   background-color: var(--main-backgroung-gray-color);
   cursor: pointer;
   &:hover {
-    color: var(--main-goldenrod-color);
+    color: var(--goldenrod-color);
   }
 }
 

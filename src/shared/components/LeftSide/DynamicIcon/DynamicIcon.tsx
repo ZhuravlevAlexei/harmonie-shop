@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
+
 import { groupsOrderTemplate } from '@/shared/constants/common';
 
 interface DynamicIconProps {

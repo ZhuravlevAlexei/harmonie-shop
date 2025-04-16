@@ -39,7 +39,7 @@ const setStates = (products: SafeProduct[], paginationData: PaginationData) => {
 export const ProductsView: React.FC<ProductsViewProps> = ({
   activeGroupId,
 }) => {
-  const [tik, setTik] = React.useState(0);
+  const [forceReRender, setForceReRender] = React.useState(false);
   const { lang, translations } = useLang();
   const [groups, products, searchText] = useProductsStore(
     useShallow(state => [state.groups, state.products, state.searchText])
@@ -96,8 +96,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
 
   const handleAddToCart = (product: SafeProduct) => {
     addCartItem(product);
-    setTik(tik + 1);
-    console.log('tik: ', tik);
+    setForceReRender(!forceReRender);
     toast.success(
       `${getNameMultilang(product, lang)} ${
         translations[lang].cart.added_to_cart

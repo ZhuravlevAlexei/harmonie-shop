@@ -9,7 +9,7 @@
   background-color: var(--main-backgroung-gray-color);
   cursor: pointer;
   &:hover {
-    color: var(--main-goldenrod-color);
+    color: var(--goldenrod-color);
   }
 }
 
@@ -22,7 +22,7 @@
 .left_side_item__avatar {
   min-width: 20px;
   height: 20px;
-  color: var(--main-goldenrod-color);
+  color: var(--goldenrod-color);
 }
 
 .left_side_item__name {

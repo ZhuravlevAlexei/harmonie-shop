@@ -3,8 +3,8 @@ import React from 'react';
 import { Cart } from '@/shared/components/common/Cart/Cart';
 
 export const metadata: Metadata = {
-  title: 'Корзина Harmonie Shop',
-  description: 'Корзина Harmonie Shop',
+  title: 'Cart Harmonie Shop',
+  description: 'Cart Harmonie Shop',
 };
 
 export default async function CartPage() {

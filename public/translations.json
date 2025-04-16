@@ -14,6 +14,8 @@
     "cart": {
       "added_to_cart": "додан до кошика",
       "already_in_cart": "Вже у кошику",
+      "сontinue_purchases": "Продовжити покупки",
+      "create_order": "Оформити замовлення",
       "buy": "Купити",
       "empty": "Кошик порожній",
       "title": "Кошик",
@@ -39,6 +41,8 @@
     "cart": {
       "added_to_cart": "добавлен в корзину",
       "already_in_cart": "Уже в корзине",
+      "сontinue_purchases": "Продолжить покупки",
+      "create_order": "Оформить заказ",
       "buy": "Купить",
       "empty": "Корзина пуста",
       "title": "Корзина",

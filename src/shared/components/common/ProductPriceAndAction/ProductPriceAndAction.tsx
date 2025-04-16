@@ -24,7 +24,7 @@ interface ProductPriceAndActionProps {
 export const ProductPriceAndAction: React.FC<ProductPriceAndActionProps> = ({
   id,
 }) => {
-  const [tik, setTik] = React.useState(0);
+  const [forceReRender, setForceReRender] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [product, setProduct] = React.useState<ProductType>({} as ProductType);
 
@@ -55,7 +55,7 @@ export const ProductPriceAndAction: React.FC<ProductPriceAndActionProps> = ({
 
   const handleAddToCart = (product: SafeProduct) => {
     addCartItem(product);
-    setTik(tik + 1);
+    setForceReRender(!forceReRender);
     toast.success(
       `${getNameMultilang(product, lang)} ${
         translations[lang].cart.added_to_cart

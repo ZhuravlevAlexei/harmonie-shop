@@ -1,7 +1,10 @@
 import React from 'react';
-import css from './LeftSide.module.css';
+
 import { LeftSideItem } from '../LeftSideItem/LeftSideItem';
+
 import { SafeGroup } from '@/shared/types/types';
+
+import css from './LeftSide.module.css';
 
 interface LeftSideProps {
   groups: SafeGroup[];

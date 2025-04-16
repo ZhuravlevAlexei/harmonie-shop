@@ -1,27 +1,30 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { Loader } from 'lucide-react';
 
 import { useCartStore } from '@/shared/store/cart';
 import { useLang } from '@/shared/hooks/useLang';
 import { ApiRouts } from '@/shared/constants/common';
 import { createSafeProducts } from '@/shared/utils/createSafeProducts';
+import { fineFormattedSum } from '@/shared/utils/fineFormattedSum';
+import { Button } from '../Button/Button';
+
 import { CartItem } from '../CartItem/CartItem';
 
 import { ProductType } from '@/db/models/product';
 import { CartStateItem, SafeProduct } from '@/shared/types/types';
 
 import css from './Cart.module.css';
-import { Loader } from 'lucide-react';
-import { fineFormattedSum } from '@/shared/utils/fineFormattedSum';
 
 export const Cart: React.FC = () => {
+  const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const [actualCartProducts, setActualCartProducts] = React.useState<
     SafeProduct[]
   >([]);
   const { lang, translations } = useLang();
   const items = useCartStore(state => state.items);
-  //   console.log('items: ', items);
 
   React.useEffect(() => {
     const fetchCartProducts = async () => {
@@ -38,24 +41,7 @@ export const Cart: React.FC = () => {
         }
         const { products }: { products: ProductType[] } = await response.json();
         const safeProducts = createSafeProducts(products);
-
         setActualCartProducts(safeProducts);
-        // const productsWithPrice = safeProducts.map(product => {
-        //   const item = items.find(item => item.product.id === product.id);
-        //   if (item) {
-        //     return {
-        //       ...item,
-        //       quantity: item.quantity,
-        //       price: Number(product.price),
-        //     };
-        //   } else {
-        //     return { product, quantity: 0, price: 0 };
-        //   }
-        // });
-        // const skipEmptyItems = productsWithPrice.filter(
-        //   item => item.quantity > 0
-        // );
-        // setCartProducts(skipEmptyItems);
       } catch (error) {
         setLoading(false);
         console.error('ERROR in CART query:', error);
@@ -84,6 +70,10 @@ export const Cart: React.FC = () => {
     return fineFormattedSum(total);
   };
 
+  const handleContinuePurchases = () => {
+    router.push('/');
+  };
+
   return (
     <div className={css.cart_wrapper}>
       <h2 className={css.cart__title}>{translations[lang].cart.title}</h2>
@@ -108,6 +98,22 @@ export const Cart: React.FC = () => {
             </span>
           </div>
         )}
+        <div className={css.cart__buttons}>
+          <Button
+            className={css.cart__button}
+            onClick={handleContinuePurchases}
+          >
+            {translations[lang].cart.сontinue_purchases}
+          </Button>
+          {items.length > 0 && (
+            <Button
+              className={css.cart__button}
+              onClick={() => router.push('/checkout')}
+            >
+              {translations[lang].cart.create_order}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

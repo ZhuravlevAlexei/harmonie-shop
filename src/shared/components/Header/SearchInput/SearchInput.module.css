@@ -46,7 +46,7 @@
   padding-right: 10px;
 
   /* background-color: hsl(22, 100%, 50%); */
-  background-color: var(--main-goldenrod-color);
+  background-color: var(--goldenrod-color);
   border-radius: 10px;
   border: none;
   cursor: pointer;

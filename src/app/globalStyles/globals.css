@@ -3,8 +3,9 @@
   --main-white-color: #fff;
   --main-backgroung-gray-color: #e9e4e4;
   /* --main-backgroung-gray-color: #f5f5f5; */
-  --main-goldenrod-color: #daa520;
+  --goldenrod-color: #daa520;
   --orange-star-color: #ffb547;
+  --button-background-color: #21413b;
 }
 
 body {
@@ -38,12 +39,12 @@ nextjs-portal {
   font-weight: 400;
 }
 
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
 }
