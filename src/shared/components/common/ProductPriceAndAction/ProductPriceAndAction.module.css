@@ -10,7 +10,12 @@
 }
 
 .product__item__price_wrapper {
-  height: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 150px;
 }
 
 .product__item__price {
@@ -36,4 +41,8 @@
   background-color: var(--button-background-color);
   border: none;
   cursor: pointer;
+}
+
+.product__item__button_in_cart {
+  color: var(--orange-star-color);
 }

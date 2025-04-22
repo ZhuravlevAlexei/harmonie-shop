@@ -11,9 +11,9 @@
 .product__item {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 250px;
   height: 450px;
-  /* border: 1px solid red; */
 }
 
 .product__item__link {
@@ -26,7 +26,6 @@
 
 .product_item__image {
   object-fit: contain;
-  /* border: 1px solid black; */
 }
 
 .product__item__price {
@@ -55,7 +54,7 @@
 }
 
 .product__item__button {
-  width: 150px;
+  width: 120px;
   height: 35px;
   margin: 5px 0 0 0;
   padding: 5px;
@@ -65,4 +64,8 @@
   background-color: var(--button-background-color);
   border: none;
   cursor: pointer;
+}
+
+.product__item__button_in_cart {
+  color: var(--orange-star-color);
 }

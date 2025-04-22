@@ -16,6 +16,15 @@
   width: 600px;
 }
 
+.cart__item__checkout__name {
+  display: -webkit-box;
+  max-width: 100px;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .cart__item__name__link {
   text-decoration: none;
   color: var(--main-black-color);

@@ -57,3 +57,5 @@ export type CartStateItem = {
   quantity: number;
   price: number;
 };
+
+export type DeliveryOptionType = { value: string; label: string };

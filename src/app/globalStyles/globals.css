@@ -1,11 +1,12 @@
 :root {
+  --auto-fill-light-dark: rgb(232, 240, 254);
+  --button-background-color: #21413b;
+  --goldenrod-color: #daa520;
   --main-black-color: #000;
   --main-white-color: #fff;
   --main-backgroung-gray-color: #e9e4e4;
   /* --main-backgroung-gray-color: #f5f5f5; */
-  --goldenrod-color: #daa520;
   --orange-star-color: #ffb547;
-  --button-background-color: #21413b;
 }
 
 body {

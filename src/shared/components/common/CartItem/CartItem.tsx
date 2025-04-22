@@ -1,19 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import clsx from 'clsx';
 import { CircleMinus, CirclePlus, Trash2 } from 'lucide-react';
-
-import { Button } from '../Button/Button';
 
 import { useCartStore } from '@/shared/store/cart';
 import { useProductsStore } from '@/shared/store/products';
-
 import { fineFormattedSum } from '@/shared/utils/fineFormattedSum';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
-import { AllowedLangs } from '@/shared/constants/common';
+import { Button } from '../Button/Button';
 import { CartStateItem } from '@/shared/types/types';
+import { AllowedLangs } from '@/shared/constants/common';
+
 import { SafeProduct } from '@/shared/types/types';
 
 import css from './CartItem.module.css';
@@ -22,12 +21,14 @@ interface CartItemProps {
   cartItem: CartStateItem;
   actualCartProducts: SafeProduct[];
   lang: AllowedLangs;
+  forCheckout?: boolean;
 }
 
 export const CartItem: React.FC<CartItemProps> = ({
   cartItem,
   actualCartProducts,
   lang,
+  forCheckout = false,
 }) => {
   const actualProduct = actualCartProducts.find(
     product => product.id === cartItem.product.id
@@ -73,7 +74,13 @@ export const CartItem: React.FC<CartItemProps> = ({
         priority
       />
 
-      <div className={css.cart__item__name}>
+      <div
+        className={clsx(
+          css.cart__item__name,
+          forCheckout && css.cart__item__checkout__name
+        )}
+        title={getNameMultilang(cartItem.product, lang)}
+      >
         <Link
           className={css.cart__item__name__link}
           href={`/products/${cartItem.product.id}`}

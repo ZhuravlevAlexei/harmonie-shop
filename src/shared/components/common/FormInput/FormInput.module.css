@@ -1,0 +1,48 @@
+.input__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input__label {
+  max-width: 300px;
+}
+
+.input__anchor {
+  width: 355px;
+  height: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.input_element {
+  width: 355px;
+  height: 30px;
+  padding: 0 0 0 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: var(--auto-fill-light-dark);
+}
+
+.input__clear__button {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  translate: 0 -50%;
+  background-color: var(--main-backgroung-gray-color);
+  cursor: pointer;
+  opacity: 0.5;
+  /* border: none; */
+  border-radius: 5px;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.errorText {
+  max-width: 355px;
+  color: red;
+}

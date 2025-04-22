@@ -22,6 +22,7 @@ import css from './ProductsView.module.css';
 import { Button } from '../../common/Button/Button';
 import { useCartStore } from '@/shared/store/cart';
 import { useShallow } from 'zustand/react/shallow';
+import clsx from 'clsx';
 
 interface ProductsViewProps {
   activeGroupId: number;
@@ -47,19 +48,9 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   const [page, perPage, totalPages] = usePaginationStore(
     useShallow(state => [state.page, state.perPage, state.totalPages])
   );
-  // const addCartItem = useCartStore(state => state.addCartItem);
-
   const [productInCart, addCartItem] = useCartStore(
     useShallow(state => [state.productInCart, state.addCartItem])
   );
-
-  // testing cart
-  //cart data, temporary, just for testing
-  // const [totalQty, items, addCartItem] = useCartStore(
-  //   useShallow(state => [state.totalQty, state.items, state.addCartItem])
-  // );
-  // console.log('totalQty: ', totalQty);
-  // console.log('cartItems: ', items);
 
   const localGroups = groups.filter(
     group => group.parent_group_id === activeGroupId
@@ -152,7 +143,10 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
                 </div>
               </Link>
               <Button
-                className={css.product__item__button}
+                className={clsx(
+                  css.product__item__button,
+                  productInCart(product) && css.product__item__button_in_cart
+                )}
                 onClick={() => handleAddToCart(product)}
               >
                 {productInCart(product)

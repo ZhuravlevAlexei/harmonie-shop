@@ -10,7 +10,6 @@ export const useProductNameMultilang = (
   product: SafeGroup | SafeProduct | GroupType | ProductType
 ): string => {
   const { lang } = useLang();
-  // const lang = await getLanguage(); //if server side
   let productNameMultilang = '';
   if (lang === AllowedLangs.RU) {
     productNameMultilang = product.name_multilang?.ru || '';

@@ -17,7 +17,11 @@ import { CartStateItem, SafeProduct } from '@/shared/types/types';
 
 import css from './Cart.module.css';
 
-export const Cart: React.FC = () => {
+interface CartProps {
+  forCheckout?: boolean;
+}
+
+export const Cart: React.FC<CartProps> = ({ forCheckout = false }) => {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const [actualCartProducts, setActualCartProducts] = React.useState<
@@ -77,27 +81,7 @@ export const Cart: React.FC = () => {
   return (
     <div className={css.cart_wrapper}>
       <h2 className={css.cart__title}>{translations[lang].cart.title}</h2>
-      <div className={css.cart}>
-        {loading ? (
-          <Loader size={68} className="animate-spin" />
-        ) : items.length === 0 ? (
-          <p>{translations[lang].cart.empty}</p>
-        ) : (
-          <div>
-            {items.map(item => (
-              <CartItem
-                key={item.product.id}
-                cartItem={item}
-                actualCartProducts={actualCartProducts}
-                lang={lang}
-              />
-            ))}
-            <span className={css.cart__total}>
-              {translations[lang].cart.total}:{' '}
-              {calcCartTotal(items, actualCartProducts)} ₴
-            </span>
-          </div>
-        )}
+      {!forCheckout && (
         <div className={css.cart__buttons}>
           <Button
             className={css.cart__button}
@@ -114,6 +98,29 @@ export const Cart: React.FC = () => {
             </Button>
           )}
         </div>
+      )}
+      <div className={css.cart}>
+        {loading ? (
+          <Loader size={68} className="animate-spin" />
+        ) : items.length === 0 ? (
+          <p>{translations[lang].cart.empty}</p>
+        ) : (
+          <div>
+            {items.map(item => (
+              <CartItem
+                key={item.product.id}
+                cartItem={item}
+                actualCartProducts={actualCartProducts}
+                lang={lang}
+                forCheckout={forCheckout}
+              />
+            ))}
+            <span className={css.cart__total}>
+              {translations[lang].cart.total}:{' '}
+              {calcCartTotal(items, actualCartProducts)} ₴
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

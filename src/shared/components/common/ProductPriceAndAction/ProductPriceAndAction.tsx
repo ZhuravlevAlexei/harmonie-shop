@@ -3,6 +3,7 @@ import React from 'react';
 import { useShallow } from 'zustand/shallow';
 import { Loader } from 'lucide-react';
 import toast from 'react-hot-toast';
+import clsx from 'clsx';
 
 import { ApiRouts } from '@/shared/constants/common';
 import { useLang } from '@/shared/hooks/useLang';
@@ -81,7 +82,11 @@ export const ProductPriceAndAction: React.FC<ProductPriceAndActionProps> = ({
             </div>
           )}
           <Button
-            className={css.product__button}
+            className={clsx(
+              css.product__button,
+              productInCart(createSafeProduct(product)) &&
+                css.product__item__button_in_cart
+            )}
             onClick={() => handleAddToCart(createSafeProduct(product))}
           >
             {productInCart(createSafeProduct(product))

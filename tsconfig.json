@@ -22,6 +22,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/shared/hooks/useNovaPosha.js",
+    "src/shared/helpers/createSettlementDescription.js",
+    "src/shared/helpers/createOptions.js",
+    "src/shared/service/index.js"
+  ],
   "exclude": ["node_modules"]
 }
