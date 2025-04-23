@@ -7,7 +7,7 @@
 }
 
 .input__label {
-  max-width: 300px;
+  width: 355px;
 }
 
 .input__anchor {
@@ -25,6 +25,10 @@
   border: 1px solid lightgray;
   border-radius: 5px;
   background-color: var(--auto-fill-light-dark);
+}
+
+.full_width {
+  width: 100%;
 }
 
 .input__clear__button {

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import {
   createOptionsForAddressSelect,
@@ -19,11 +21,11 @@ export const useNovaPoshta = (deliveryType, cityId) => {
 
   async function getSettlementsList(inputValue) {
     try {
-      const result = await fetchNPSettlementsByQuery(inputValue, deliveryType);
+      // const result = await fetchNPSettlementsByQuery(inputValue, deliveryType); // оригинал
+      const result = await fetchNPSettlementsByQuery(inputValue);
       return createOptionsForLocationSelect(result, deliveryType);
     } catch (error) {
       console.log('error: ', error);
-      // error;
     }
   }
 
@@ -37,7 +39,6 @@ export const useNovaPoshta = (deliveryType, cityId) => {
       return options;
     } catch (error) {
       console.log('error: ', error);
-      // error;
     }
   }
 
@@ -53,7 +54,6 @@ export const useNovaPoshta = (deliveryType, cityId) => {
         setDivisions(options);
       } catch (error) {
         console.log('error: ', error);
-        // error;
       }
     }
     getNPDivisionsBySettlementId(cityId);

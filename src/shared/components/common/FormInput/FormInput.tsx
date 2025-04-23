@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
+import clsx from 'clsx';
 import { X } from 'lucide-react';
+
 import { useFormContext } from 'react-hook-form';
 
 import css from './FormInput.module.css';
@@ -27,6 +29,8 @@ export const FormInput: React.FC<FormInputProps> = ({
     setError,
   } = useFormContext();
 
+  const isAddress = name === 'address';
+
   const value = watch(name);
   const errorText = errors[name]?.message as string;
 
@@ -37,12 +41,15 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   return (
     <div className={css.input__wrapper}>
-      <label className={css.input__label} htmlFor={name}>
+      <label
+        className={clsx(css.input__label, isAddress && css.full_width)}
+        htmlFor={name}
+      >
         {label}
       </label>
-      <div className={css.input__anchor}>
+      <div className={clsx(css.input__anchor, isAddress && css.full_width)}>
         <input
-          className={css.input_element}
+          className={clsx(css.input_element, isAddress && css.full_width)}
           type="text"
           id={name}
           autoComplete="off"

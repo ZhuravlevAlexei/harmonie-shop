@@ -1,6 +1,19 @@
 import { z } from 'zod';
 
-export const optionTypeSchema = z.object({
+export const optionDeliverySchema = z.object({
+  value: z.string(),
+  label: z.string(),
+});
+
+export const optionLocationSchema = z.object({
+  value: z.object({
+    city: z.string(),
+    cityId: z.string(),
+  }),
+  label: z.string(),
+});
+
+export const optionDivisionSchema = z.object({
   value: z.string(),
   label: z.string(),
 });
@@ -16,7 +29,11 @@ export const checkoutFormSchema = z.object({
   phone: z
     .string()
     .min(10, { message: 'Phone must be at least 10 characters' }),
-  deliveryType: optionTypeSchema.nullish(),
+  deliveryType: optionDeliverySchema.nullish(),
+  location: optionLocationSchema.nullish(),
+  division: optionDivisionSchema.nullish(),
+  address: z.string().optional(),
   comment: z.string().optional(),
 });
+
 export type CheckoutFormValues = z.infer<typeof checkoutFormSchema>;

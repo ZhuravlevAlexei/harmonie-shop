@@ -58,4 +58,17 @@ export type CartStateItem = {
   price: number;
 };
 
-export type DeliveryOptionType = { value: string; label: string };
+export type DeliveryOptionType = {
+  value: string;
+  label: string;
+};
+
+export type LocationOptionType = {
+  value: { city: string; cityId: string };
+  label: string;
+};
+
+export type DivisionOptionType = {
+  value: string;
+  label: string;
+};

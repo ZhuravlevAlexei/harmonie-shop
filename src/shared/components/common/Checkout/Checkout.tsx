@@ -1,20 +1,38 @@
 'use client';
 import React from 'react';
+// import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { X } from 'lucide-react';
+// import dynamic from 'next/dynamic';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { Cart } from '../Cart/Cart';
-import { FormInput } from '../FormInput/FormInput';
+// import { FormInput } from '../FormInput/FormInput';
 import {
   checkoutFormSchema,
   CheckoutFormValues,
 } from '@/shared/constants/checkout-form-schema';
 
-import { deliveryTypeOptions } from '@/shared/options/selectOptions';
+// import {
+//   deliveryTypeOptions,
+//   defaultOptionsForLocationSelect,
+// } from '@/shared/options/selectOptions';
 
 import css from './Checkout.module.css';
+// import { useNovaPoshta } from '@/shared/hooks/useNovaPosha';
+import { ContactsForm } from '../ContactsForm/ContactsForm';
+import { AddressForm } from '../AddressForm/AddressForm';
+
+// const ClientOnlySelect = dynamic(() => import('../ClientSelect/ClientSelect'), {
+//   ssr: false,
+// });
+
+// const ClientOnlyAsyncSelect = dynamic(
+//   () => import('../ClientAsyncSelect/ClientAsyncSelect'),
+//   {
+//     ssr: false,
+//   }
+// );
 
 export const Checkout: React.FC = () => {
   const { lang, translations } = useLang();
@@ -27,17 +45,25 @@ export const Checkout: React.FC = () => {
       email: '',
       phone: '',
       deliveryType: null,
+      location: null,
+      division: null,
+      address: '',
       comment: '',
     },
   });
-  const { handleSubmit, register, watch } = form;
+  const { handleSubmit, register } = form;
+
+  // const deliveryType = form.watch('deliveryType');
+  // const deliveryString = deliveryType ? deliveryType.value : '';
+  // const cityLocation = form.watch('location');
+  // const cityId = cityLocation ? cityLocation.value.cityId : '';
 
   // const {
-  //   // divisions,
+  //   divisions,
   //   // valueForSelect,
   //   // setValueForSelect,
-  //   // getSettlementsList,
-  //   // getDivisionsList,
+  //   getSettlementsList,
+  //   getDivisionsList,
   // } = useNovaPoshta(deliveryType, cityId);
 
   const onSubmit = (data: CheckoutFormValues) => {
@@ -61,66 +87,62 @@ export const Checkout: React.FC = () => {
             onKeyDown={handleKeyDown}
             noValidate
           >
-            {/* <ContactForm/> */}
-            <h4>{translations[lang].checkout.contacts}</h4>
-            <div className={css.checkout__inputs__wrapper}>
-              <FormInput
-                name="firstName"
-                label={translations[lang].checkout.firstName}
-                placeholder={translations[lang].checkout.firstName}
-                required={true}
-              />
-              <FormInput
-                name="lastName"
-                label={translations[lang].checkout.lastName}
-                placeholder={translations[lang].checkout.lastName}
-                required={true}
-              />
-            </div>
-            <div className={css.checkout__inputs__wrapper}>
-              <FormInput
-                name="email"
-                label={translations[lang].checkout.email}
-                placeholder={translations[lang].checkout.email}
-                required={true}
-              />
-              <FormInput
-                name="phone"
-                label={translations[lang].checkout.phone}
-                placeholder={translations[lang].checkout.phone}
-                required={true}
-              />
-            </div>
+            <ContactsForm />
 
-            {/* <AddressForm /> */}
-            <h4>{translations[lang].checkout.delivery_new_post}</h4>
-            <div className={css.checkout__delivery__select__wrapper}>
-              <select
-                id="mySelect"
-                className={css.checkout__delivery__select}
-                {...register('deliveryType')}
-              >
-                <option value="" disabled selected>
-                  Оберіть варіант доставки...
-                </option>
-                {deliveryTypeOptions.map((option, index) => (
-                  <option key={index} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {watch('deliveryType') && (
-                <button
-                  className={css.checkout__delivery__select__clear}
-                  onClick={() => {
-                    form.setValue('deliveryType', null);
-                  }}
-                  type="button"
-                >
-                  <X size={12} />
-                </button>
+            <AddressForm />
+            {/* <h4>{translations[lang].checkout.delivery_new_post}</h4>
+            <Controller
+              control={form.control}
+              name="deliveryType"
+              render={({ field }) => (
+                <ClientOnlySelect
+                  field={field}
+                  options={deliveryTypeOptions}
+                  placeholder={
+                    translations[lang].checkout.choose_delivery_variant
+                  }
+                />
               )}
-            </div>
+            /> */}
+            {/* <Controller
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <ClientOnlyAsyncSelect
+                  field={field}
+                  defaultOptions={defaultOptionsForLocationSelect}
+                  placeholder={
+                    translations[lang].checkout.choose_delivery_location
+                  }
+                  getSettlementsList={getSettlementsList}
+                />
+              )}
+            /> */}
+
+            {/* {String(deliveryString) === 'Доставка кур`єром' ? (
+              <FormInput
+                name="address"
+                // label={translations[lang].checkout.input_address}
+                placeholder={translations[lang].checkout.input_address}
+              />
+            ) : (
+              <Controller
+                control={form.control}
+                name="division"
+                render={({ field }) => (
+                  <ClientOnlyAsyncSelect
+                    field={field}
+                    defaultOptions={divisions}
+                    placeholder={
+                      translations[lang].checkout.choose_delivery_division
+                    }
+                    getSettlementsList={getSettlementsList}
+                    getDivisionsList={getDivisionsList}
+                  />
+                )}
+              />
+            )} */}
+
             <textarea
               className={css.checkout__comment}
               id="comment"
