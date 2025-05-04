@@ -17,7 +17,7 @@ import { env } from '@/shared/utils/env';
 import { getDescriptionMultilang } from '@/shared/utils/getDescriptionMultilang';
 import { Breadcrumbs } from '@/shared/components';
 
-import css from './page-product.module.css';
+import css from './ProductPage.module.css';
 
 const baseProductQuery = `${env('NEXT_PUBLIC_BASE_URL')}${env(
   'NEXT_PUBLIC_API_URL'

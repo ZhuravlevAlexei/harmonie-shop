@@ -17,7 +17,7 @@ const ClientSelect: React.FC<ClientSelectProps> = ({
   options,
   placeholder,
 }) => {
-  const { setValue } = useFormContext();
+  const { setValue } = useFormContext<CheckoutFormValues>();
 
   const handleChange = (option: SingleValue<DeliveryOptionType>) => {
     field.onChange(option);

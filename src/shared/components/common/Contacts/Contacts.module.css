@@ -1,0 +1,65 @@
+.contacts__wrapper {
+  display: grid;
+  grid-template-areas: 'schedule information';
+  grid-template-columns: 230px 1fr;
+  grid-template-rows: 1fr;
+  column-gap: 80px;
+}
+
+.schedule {
+  grid-area: schedule;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shedule__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.information {
+  grid-area: information;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.information__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.information__item__name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 5px;
+  width: 200px;
+}
+
+.information__item__data {
+  font-weight: 600;
+  color: blue;
+}
+.documents {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  margin-top: 20px;
+  width: 130px;
+  opacity: 0.1;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}

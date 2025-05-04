@@ -29,7 +29,7 @@ export const FormInput: React.FC<FormInputProps> = ({
     setError,
   } = useFormContext();
 
-  const isAddress = name === 'address';
+  const isAddress = name === 'deliveryLocation';
 
   const value = watch(name);
   const errorText = errors[name]?.message as string;

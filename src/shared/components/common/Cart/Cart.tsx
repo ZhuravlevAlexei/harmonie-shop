@@ -1,6 +1,8 @@
 'use client';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useShallow } from 'zustand/shallow';
 import { Loader } from 'lucide-react';
 
 import { useCartStore } from '@/shared/store/cart';
@@ -13,7 +15,7 @@ import { Button } from '../Button/Button';
 import { CartItem } from '../CartItem/CartItem';
 
 import { ProductType } from '@/db/models/product';
-import { CartStateItem, SafeProduct } from '@/shared/types/types';
+import { SafeProduct } from '@/shared/types/types';
 
 import css from './Cart.module.css';
 
@@ -28,7 +30,9 @@ export const Cart: React.FC<CartProps> = ({ forCheckout = false }) => {
     SafeProduct[]
   >([]);
   const { lang, translations } = useLang();
-  const items = useCartStore(state => state.items);
+  const [items, totalAmount, setTotalAmount] = useCartStore(
+    useShallow(state => [state.items, state.totalAmount, state.setTotalAmount])
+  );
 
   React.useEffect(() => {
     const fetchCartProducts = async () => {
@@ -46,6 +50,7 @@ export const Cart: React.FC<CartProps> = ({ forCheckout = false }) => {
         const { products }: { products: ProductType[] } = await response.json();
         const safeProducts = createSafeProducts(products);
         setActualCartProducts(safeProducts);
+        setTotalAmount(safeProducts);
       } catch (error) {
         setLoading(false);
         console.error('ERROR in CART query:', error);
@@ -56,23 +61,7 @@ export const Cart: React.FC<CartProps> = ({ forCheckout = false }) => {
     if (items.length > 0 && actualCartProducts.length === 0) {
       fetchCartProducts();
     }
-  }, [items, actualCartProducts]);
-
-  const calcCartTotal = (
-    items: CartStateItem[],
-    actualCartProducts: SafeProduct[]
-  ) => {
-    let total = 0;
-    for (const item of items) {
-      const product = actualCartProducts.find(
-        product => product.id === item.product.id
-      );
-      if (product) {
-        total += product.price * item.quantity;
-      }
-    }
-    return fineFormattedSum(total);
-  };
+  }, [items, actualCartProducts, setTotalAmount]);
 
   const handleContinuePurchases = () => {
     router.push('/');
@@ -116,8 +105,7 @@ export const Cart: React.FC<CartProps> = ({ forCheckout = false }) => {
               />
             ))}
             <span className={css.cart__total}>
-              {translations[lang].cart.total}:{' '}
-              {calcCartTotal(items, actualCartProducts)} ₴
+              {translations[lang].cart.total}: {fineFormattedSum(totalAmount)} ₴
             </span>
           </div>
         )}

@@ -1,5 +1,6 @@
-import { Metadata } from 'next';
 import React from 'react';
+import { Metadata } from 'next';
+import { Contacts } from '@/shared/components/common/Contacts/Contacts';
 
 export const metadata: Metadata = {
   title: 'About Harmonie Shop',
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactsPage() {
-  return <div>А тут будут наши контакты !!!!</div>;
+  return <Contacts />;
 }

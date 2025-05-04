@@ -74,9 +74,9 @@ export const AddressForm: React.FC<AddressFormProps> = ({}) => {
 
       {String(deliveryString) === 'Доставка кур`єром' ? (
         <FormInput
-          name="address"
-          // label={translations[lang].checkout.input_address}
-          placeholder={translations[lang].checkout.input_address}
+          name="deliveryLocation"
+          // label={translations[lang].checkout.input_delivery_location}
+          placeholder={translations[lang].checkout.input_delivery_location}
         />
       ) : (
         <Controller

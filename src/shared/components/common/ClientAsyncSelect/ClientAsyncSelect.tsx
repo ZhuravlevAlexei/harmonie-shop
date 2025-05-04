@@ -22,7 +22,7 @@ const ClientAsyncSelect: React.FC<ClientAsyncSelectProps> = ({
   getSettlementsList,
   getDivisionsList,
 }) => {
-  const { setValue } = useFormContext();
+  const { setValue } = useFormContext<CheckoutFormValues>();
 
   const handleChange = (
     option: SingleValue<LocationOptionType | DivisionOptionType>,
@@ -30,7 +30,7 @@ const ClientAsyncSelect: React.FC<ClientAsyncSelectProps> = ({
   ) => {
     field.onChange(option);
     if (name === 'location') setValue('division', null);
-    setValue('address', '');
+    setValue('deliveryLocation', '');
   };
   return (
     <AsyncSelect<LocationOptionType | DivisionOptionType>

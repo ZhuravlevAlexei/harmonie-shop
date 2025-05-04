@@ -10,7 +10,7 @@ import { GroupType } from '@/db/models/group';
 
 import { createSafeGroups } from '@/shared/utils/createSafeGroups';
 
-import css from './page.module.css';
+import css from './Home.module.css';
 
 export const metadata: Metadata = {
   title: 'Інтернет-магазин',

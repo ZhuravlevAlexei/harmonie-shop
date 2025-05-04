@@ -1,6 +1,8 @@
+'use server';
+
 import connectDB from '../db/connectDB';
-import { GroupsCollection, GroupType } from '../db/models/group';
 import { HiddenGroups } from '@/shared/constants/hidden';
+import { GroupsCollection, GroupType } from '../db/models/group';
 
 export async function getGroups(): Promise<GroupType[]> {
   try {

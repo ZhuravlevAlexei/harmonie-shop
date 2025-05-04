@@ -1,4 +1,5 @@
 'use server';
+
 import connectDB from '@/db/connectDB';
 
 import { SORT_ORDER } from '@/shared/constants/common';

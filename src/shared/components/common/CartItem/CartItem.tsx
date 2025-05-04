@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { useShallow } from 'zustand/shallow';
 import { CircleMinus, CirclePlus, Trash2 } from 'lucide-react';
 
 import { useCartStore } from '@/shared/store/cart';
@@ -34,16 +37,26 @@ export const CartItem: React.FC<CartItemProps> = ({
     product => product.id === cartItem.product.id
   );
 
+  const [setTotalAmount, addCartItem, minusOneQty] = useCartStore(
+    useShallow(state => [
+      state.setTotalAmount,
+      state.addCartItem,
+      state.minusOneQty,
+    ])
+  );
+
   if (!actualProduct) {
-    return <>Внимание пропуск строки</>;
+    return <>Внимание, ошибка, пропуск строки!!!</>;
   }
 
   const handleQtyPlus = (product: SafeProduct) => {
-    useCartStore.getState().addCartItem(product);
+    addCartItem(product);
+    setTotalAmount(actualCartProducts);
   };
 
   const handleQtyMinus = (product: SafeProduct) => {
-    useCartStore.getState().minusOneQty(product);
+    minusOneQty(product);
+    setTotalAmount(actualCartProducts);
   };
 
   const handleRemoveFromCart = (product: SafeProduct) => {

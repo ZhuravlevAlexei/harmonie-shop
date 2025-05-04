@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New order</title>
+  </head>
+
+  <body>
+    <h1 style="color: blue">Привет!</h1>
+    <p>НОВЫЙ ЗАКАЗ НА САЙТЕ!</p>
+    <p>Покупатель: <%= firstName %> <%= lastName %></p>
+    <p>Телефон: <%= phone %></p>
+    <p>Почта: <%= email %></p>
+    <p>Комментарии: <%= comment %></p>
+    <p>Тип доставки: <%= deliveryType %></p>
+    <p>Адрес доставки: <%= deliveryLocation %></p>
+    <p>Город: <%= location %></p>
+    <p>Отделение: <%= division %></p>
+    <p>Замовлення:</p>
+    <table border="1" cellpadding="5" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Назва</th>
+          <th>Кількість</th>
+          <th style="min-width: 70px">Ціна</th>
+          <th style="min-width: 70px">Сума</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let item of it.items) { %>
+        <tr>
+          <td style="display: flex; align-items: center">
+            <img
+              src="<%= item.main_image %>"
+              alt="Зображення товару"
+              style="max-width: 100px; height: auto"
+            />
+            <%= item.name %>
+          </td>
+          <td style="text-align: center"><%= item.quantity %></td>
+          <td style="text-align: center"><%= item.price %> ₴</td>
+          <td style="text-align: center">
+            <%= item.price * item.quantity %> ₴
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <p style="font-size: 18px; font-weight: 500; text-align: left">
+      Загальна сума: <%= it.totalAmount %> ₴
+    </p>
+  </body>
+</html>

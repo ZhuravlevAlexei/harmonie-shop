@@ -1,3 +1,5 @@
+'use server';
+
 import connectDB from '@/db/connectDB';
 import {
   ProductDataType,
