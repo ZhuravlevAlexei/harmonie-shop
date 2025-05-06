@@ -1,11 +1,12 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { useCartStore } from '@/shared/store/cart';
-import { createOrder } from '@/actions/orders';
+// import { createOrder } from '@/actions/orders';
 
 import { Cart } from '../Cart/Cart';
 import { ContactsForm } from '../ContactsForm/ContactsForm';
@@ -20,8 +21,11 @@ import { OrderType } from '@/db/models/order';
 
 import css from './Checkout.module.css';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
+import AlertDialog from '../AlertDialog/AlertDialog';
 
 export const Checkout: React.FC = () => {
+  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const { lang, translations } = useLang();
   const form = useForm<CheckoutFormValues>({
@@ -41,6 +45,11 @@ export const Checkout: React.FC = () => {
   });
   const { handleSubmit, register } = form;
 
+  const handleClose = () => {
+    setOpen(false);
+    router.push('/');
+  };
+
   const onSubmit = async (data: CheckoutFormValues) => {
     try {
       setLoading(true);
@@ -54,8 +63,11 @@ export const Checkout: React.FC = () => {
         };
       });
       const totalAmount = useCartStore.getState().totalAmount;
+      const curDate = new Date();
+      const orderDate = curDate.toLocaleString();
       const payload = {
-        orderDate: new Date(),
+        orderDate: orderDate,
+        orderNumber: '',
         firstName: data.firstName,
         lastName: data.lastName,
         phone: data.phone,
@@ -70,17 +82,23 @@ export const Checkout: React.FC = () => {
         status: 'new',
       } as OrderType;
 
+      console.log('payload: ', payload);
+
       // создаем ордер в базе и посылаем письма покупателю что купил и спасибо за покупку
       //  и менеджеру о новом заказе
-      const success = await createOrder(payload);
-      if (!success) {
-        throw new Error('Error creating order in database');
-      }
+      // const success = await createOrder(payload);
+      // if (!success) {
+      //   throw new Error('Error creating order in database');
+      // }
       // чистим корзину
       // useCartStore.getState().clearCart();
 
       // переходим на страницу благодарности на 10 секунд, благодарим
       // покупателя за покупку и переходим на главную
+      setOpen(true);
+      setTimeout(() => {
+        router.push('/');
+      }, 15000);
     } catch (error) {
       setLoading(false);
       console.log('error: ', error);
@@ -127,6 +145,7 @@ export const Checkout: React.FC = () => {
       <div>
         <Cart forCheckout={true} />
       </div>
+      {open && <AlertDialog onClose={handleClose} />}
     </div>
   );
 };

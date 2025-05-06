@@ -9,18 +9,20 @@ import { OrderType } from '@/db/models/order';
 export async function sendEmailsAboutOrder(payload: OrderType) {
   const eta = new Eta({ useWith: true });
 
-  const newOrderTemplatePath = path.join(TEMPLATES_DIR, 'new-order-email.eta');
+  const newOrderTemplatePath = path.join(TEMPLATES_DIR, 'new-order-email.html');
   const templateSource = (await fs.readFile(newOrderTemplatePath)).toString();
 
   const thanksToClientTemplatePath = path.join(
     TEMPLATES_DIR,
-    'thanks-to-client-email.eta'
+    'thanks-to-client-email.html'
   );
   const templateSourceForClient = (
     await fs.readFile(thanksToClientTemplatePath)
   ).toString();
 
   const emailData = {
+    orderDate: payload.orderDate,
+    orderNumber: payload.orderNumber,
     firstName: payload.firstName,
     lastName: payload.lastName,
     email: payload.email,

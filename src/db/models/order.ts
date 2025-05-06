@@ -2,7 +2,8 @@ import { InferSchemaType, model, Schema, models } from 'mongoose';
 
 export const orderSchema = new Schema(
   {
-    orderDate: Date,
+    orderDate: String,
+    orderNumber: String,
     firstName: String,
     lastName: String,
     phone: String,

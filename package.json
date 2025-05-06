@@ -19,7 +19,6 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.4.7",
     "eta": "^3.5.0",
-    "handlebars": "^4.7.8",
     "lucide-react": "^0.481.0",
     "mongoose": "^8.12.1",
     "next": "15.2.1",
