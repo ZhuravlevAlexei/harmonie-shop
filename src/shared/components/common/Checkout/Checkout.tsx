@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { useCartStore } from '@/shared/store/cart';
-// import { createOrder } from '@/actions/orders';
+import { createOrder } from '@/actions/orders';
 
 import { Cart } from '../Cart/Cart';
 import { ContactsForm } from '../ContactsForm/ContactsForm';
@@ -14,9 +14,9 @@ import { AddressForm } from '../AddressForm/AddressForm';
 import { Button } from '../Button/Button';
 
 import {
-  checkoutFormSchema,
   CheckoutFormValues,
-} from '@/shared/constants/checkout-form-schema';
+  createCheckoutFormSchemaMultilang,
+} from '@/shared/validation/checkout-form-schema';
 import { OrderType } from '@/db/models/order';
 
 import css from './Checkout.module.css';
@@ -29,16 +29,16 @@ export const Checkout: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
   const { lang, translations } = useLang();
   const form = useForm<CheckoutFormValues>({
-    resolver: zodResolver(checkoutFormSchema),
+    resolver: zodResolver(createCheckoutFormSchemaMultilang(lang)),
     mode: 'onSubmit',
     defaultValues: {
       firstName: '',
       lastName: '',
       email: '',
       phone: '',
-      deliveryType: null,
-      location: null,
-      division: null,
+      deliveryType: undefined,
+      location: undefined,
+      division: undefined,
       deliveryLocation: '',
       comment: '',
     },
@@ -47,7 +47,7 @@ export const Checkout: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    router.push('/');
+    // router.push('/');
   };
 
   const onSubmit = async (data: CheckoutFormValues) => {
@@ -73,7 +73,7 @@ export const Checkout: React.FC = () => {
         phone: data.phone,
         email: data.email,
         comment: data.comment,
-        deliveryType: data.deliveryType?.value,
+        deliveryType: data.deliveryType.value,
         location: data.location?.value.city,
         deliveryLocation: data.deliveryLocation,
         division: data.division?.value,
@@ -84,8 +84,8 @@ export const Checkout: React.FC = () => {
 
       console.log('payload: ', payload);
 
-      // создаем ордер в базе и посылаем письма покупателю что купил и спасибо за покупку
-      //  и менеджеру о новом заказе
+      // создаем ордер в базе и посылаем письма покупателю, что спасибо за
+      // покупку и менеджеру о новом заказе
       // const success = await createOrder(payload);
       // if (!success) {
       //   throw new Error('Error creating order in database');
@@ -93,12 +93,12 @@ export const Checkout: React.FC = () => {
       // чистим корзину
       // useCartStore.getState().clearCart();
 
-      // переходим на страницу благодарности на 10 секунд, благодарим
+      // переходим на диалог благодарности на 15 секунд, благодарим
       // покупателя за покупку и переходим на главную
       setOpen(true);
-      setTimeout(() => {
-        router.push('/');
-      }, 15000);
+      // setTimeout(() => {
+      //   router.push('/');
+      // }, 15000);
     } catch (error) {
       setLoading(false);
       console.log('error: ', error);

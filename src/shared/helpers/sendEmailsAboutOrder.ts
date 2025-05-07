@@ -36,6 +36,7 @@ export async function sendEmailsAboutOrder(payload: OrderType) {
     division: payload.division,
     totalAmount: payload.totalAmount,
     items: payload.items,
+    site: process.env.NEXT_PUBLIC_BASE_URL,
   };
 
   const html = eta.renderString(templateSource, emailData);

@@ -11,7 +11,7 @@ import {
   defaultOptionsForLocationSelect,
 } from '@/shared/options/selectOptions';
 import { FormInput } from '../FormInput/FormInput';
-import { CheckoutFormValues } from '@/shared/constants/checkout-form-schema';
+import { CheckoutFormValues } from '@/shared/validation/checkout-form-schema';
 
 const ClientOnlySelect = dynamic(() => import('../ClientSelect/ClientSelect'), {
   ssr: false,
