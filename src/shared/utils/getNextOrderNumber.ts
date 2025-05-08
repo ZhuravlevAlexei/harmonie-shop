@@ -7,6 +7,6 @@ export async function getNextOrderNumber() {
     { upsert: true, new: true }
   );
 
-  const number = result.seq.toString().padStart(4, '0'); // '0001', '0002'
-  return `ORDER-${number}`;
+  const number = result.seq.toString().padStart(5, '0'); // '00001', '00002'
+  return `H-${number}`;
 }

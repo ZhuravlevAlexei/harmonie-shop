@@ -28,6 +28,7 @@ export const Checkout: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const { lang, translations } = useLang();
+  const cartIsNotEmpty = useCartStore(state => state.items.length > 0);
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(createCheckoutFormSchemaMultilang(lang)),
     mode: 'onSubmit',
@@ -86,10 +87,10 @@ export const Checkout: React.FC = () => {
 
       // создаем ордер в базе и посылаем письма покупателю, что спасибо за
       // покупку и менеджеру о новом заказе
-      // const success = await createOrder(payload);
-      // if (!success) {
-      //   throw new Error('Error creating order in database');
-      // }
+      const success = await createOrder(payload);
+      if (!success) {
+        throw new Error('Error creating order in database');
+      }
       // чистим корзину
       // useCartStore.getState().clearCart();
 
@@ -132,13 +133,16 @@ export const Checkout: React.FC = () => {
               placeholder={translations[lang].checkout.comment}
               {...register('comment')}
             ></textarea>
-            <Button
-              className={css.checkout__submit__button}
-              type="submit"
-              loading={loading}
-            >
-              {translations[lang].checkout.create_order}
-            </Button>
+
+            {cartIsNotEmpty && (
+              <Button
+                className={css.checkout__submit__button}
+                type="submit"
+                loading={loading}
+              >
+                {translations[lang].checkout.create_order}
+              </Button>
+            )}
           </form>
         </FormProvider>
       </div>

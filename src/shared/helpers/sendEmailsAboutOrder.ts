@@ -45,24 +45,28 @@ export async function sendEmailsAboutOrder(payload: OrderType) {
   const adminEmail = process.env.ADMIN_EMAIL;
   const clientEmail = String(payload.email);
 
-  try {
-    await sendEmail({
-      from: process.env.SMTP_FROM,
-      to: clientEmail,
-      subject: 'Дякуємо за замовлення!',
-      html: htmlForClient || '',
-    });
-  } catch (err) {
-    console.log(err);
+  if (clientEmail) {
+    try {
+      await sendEmail({
+        from: process.env.SMTP_FROM,
+        to: clientEmail,
+        subject: 'Дякуємо за замовлення!',
+        html: htmlForClient || '',
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-  try {
-    await sendEmail({
-      from: process.env.SMTP_FROM,
-      to: adminEmail,
-      subject: 'Новый заказ на нашем сайте!',
-      html: html || '',
-    });
-  } catch (err) {
-    console.log(err);
+  if (adminEmail) {
+    try {
+      await sendEmail({
+        from: process.env.SMTP_FROM,
+        to: adminEmail,
+        subject: 'Новый заказ на нашем сайте!',
+        html: html || '',
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

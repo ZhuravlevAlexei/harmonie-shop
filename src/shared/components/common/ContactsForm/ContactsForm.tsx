@@ -44,6 +44,7 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({}) => {
           required={true}
         />
       </div>
+      <span>{translations[lang].checkout.about_email}</span>
     </>
   );
 };
