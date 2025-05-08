@@ -1,7 +1,7 @@
 'use server';
 
 import connectDB from '../db/connectDB';
-// import { sendEmailsAboutOrder } from '@/shared/helpers/sendEmailsAboutOrder';
+import { sendEmailsAboutOrder } from '@/shared/utils/sendEmailsAboutOrder';
 
 import { OrdersCollection, OrderType } from '../db/models/order';
 import { getNextOrderNumber } from '@/shared/utils/getNextOrderNumber';
@@ -17,7 +17,7 @@ export async function createOrder(order: OrderType): Promise<boolean> {
       return false;
     }
 
-    // await sendEmailsAboutOrder(order);
+    await sendEmailsAboutOrder(order);
 
     return true;
   } catch (error) {

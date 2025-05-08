@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -48,7 +49,7 @@ export const Checkout: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    // router.push('/');
+    router.push('/');
   };
 
   const onSubmit = async (data: CheckoutFormValues) => {
@@ -92,7 +93,7 @@ export const Checkout: React.FC = () => {
         throw new Error('Error creating order in database');
       }
       // чистим корзину
-      // useCartStore.getState().clearCart();
+      useCartStore.getState().clearCart();
 
       // переходим на диалог благодарности на 15 секунд, благодарим
       // покупателя за покупку и переходим на главную
