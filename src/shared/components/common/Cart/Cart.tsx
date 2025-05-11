@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
-import { Loader } from 'lucide-react';
+import { Loader, Trash2 } from 'lucide-react';
 
 import { useCartStore } from '@/shared/store/cart';
 import { useLang } from '@/shared/hooks/useLang';
@@ -79,12 +79,21 @@ export const Cart: React.FC<CartProps> = ({ forCheckout = false }) => {
             {translations[lang].cart.сontinue_purchases}
           </Button>
           {items.length > 0 && (
-            <Button
-              className={css.cart__button}
-              onClick={() => router.push('/checkout')}
-            >
-              {translations[lang].cart.create_order}
-            </Button>
+            <div className={css.cart__control__buttons}>
+              <Button
+                className={css.cart__button}
+                onClick={() => router.push('/checkout')}
+              >
+                {translations[lang].cart.create_order}
+              </Button>
+              <Button
+                title={translations[lang].cart.clear_cart}
+                className={css.clear__cart__button}
+                onClick={() => useCartStore.getState().clearCart()}
+              >
+                <Trash2 />
+              </Button>
+            </div>
           )}
         </div>
       )}

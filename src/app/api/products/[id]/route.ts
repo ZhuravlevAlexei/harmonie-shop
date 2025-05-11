@@ -3,12 +3,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const awaitedParams = await Promise.resolve(params);
+  const { id } = await params;
   try {
-    const id = Number(awaitedParams.id);
-    const product = await getProductByPromId(id);
+    const product = await getProductByPromId(Number(id));
     return NextResponse.json({ product });
   } catch (e) {
     console.log('Server error [id] ', e);

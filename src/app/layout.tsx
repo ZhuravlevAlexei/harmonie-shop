@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Header } from '@/shared/components/Header/Header/Header';
 import './globalStyles/normalize.css';
 import './globalStyles/globals.css';
 import { Providers } from '@/shared/components/common';
@@ -38,7 +37,7 @@ export default function RootLayout({
 
       <body className={nunito.variable}>
         <Providers>
-          <Header />
+          {/* <Header /> */}
           {children}
           {/* <Footer/> */}
         </Providers>

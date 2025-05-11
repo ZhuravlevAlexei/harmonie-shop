@@ -1,3 +1,4 @@
+import { Header } from '@/shared/components/Header';
 import React from 'react';
 
 export default function HomeLayout({
@@ -8,9 +9,13 @@ export default function HomeLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <main>
-      {children}
-      {modal}
-    </main>
+    <>
+      <Header />
+      <main>
+        {children}
+        {modal}
+      </main>
+      {/* <footer></footer> */}
+    </>
   );
 }

@@ -3,13 +3,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const awaitedParams = await Promise.resolve(params);
-
+  const { id } = await params;
   try {
-    const id = Number(awaitedParams.id);
-    const productData = await getProductDataByPromId(id);
+    const productData = await getProductDataByPromId(Number(id));
 
     return NextResponse.json({ productData });
   } catch (e) {

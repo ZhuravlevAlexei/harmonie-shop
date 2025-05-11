@@ -131,7 +131,6 @@ export const Contacts: React.FC = () => {
             </a>
           </span>
         </div>
-        <button className={css.admin}>Admin area</button>
       </div>
     </div>
   );

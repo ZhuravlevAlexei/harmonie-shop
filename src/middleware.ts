@@ -4,6 +4,9 @@ export function middleware(req: NextRequest) {
   // console.log('🔥 Middleware сработал!');
   const lang = req.cookies.get('harmonie_lang')?.value || 'uk'; // Язык из cookies или 'uk' по умолчанию
 
+  // const accessToken = req.cookies.get('accessToken')?.value;
+  // console.log('accessToken middleware: ', accessToken);
+
   // Если cookie нет, создаём его
   if (!req.cookies.has('harmonie_lang')) {
     const res = NextResponse.next();

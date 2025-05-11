@@ -40,3 +40,17 @@
   border: none;
   cursor: pointer;
 }
+
+.cart__control__buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.clear__cart__button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

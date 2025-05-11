@@ -22,12 +22,13 @@ import { OrderType } from '@/db/models/order';
 
 import css from './Checkout.module.css';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
-import AlertDialog from '../AlertDialog/AlertDialog';
+import ThankYouDialog from '../ThankYouDialog/ThankYouDialog';
 
 export const Checkout: React.FC = () => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [isClientEmail, setIsClientEmail] = React.useState(false);
   const { lang, translations } = useLang();
   const cartIsNotEmpty = useCartStore(state => state.items.length > 0);
   const form = useForm<CheckoutFormValues>({
@@ -64,7 +65,9 @@ export const Checkout: React.FC = () => {
           price: Number(item.product.price),
         };
       });
+
       const totalAmount = useCartStore.getState().totalAmount;
+      if (data.email) setIsClientEmail(true);
       const curDate = new Date();
       const orderDate = curDate.toLocaleString();
       const payload = {
@@ -83,8 +86,6 @@ export const Checkout: React.FC = () => {
         totalAmount: totalAmount,
         status: 'new',
       } as OrderType;
-
-      console.log('payload: ', payload);
 
       // создаем ордер в базе и посылаем письма покупателю, что спасибо за
       // покупку и менеджеру о новом заказе
@@ -150,7 +151,9 @@ export const Checkout: React.FC = () => {
       <div>
         <Cart forCheckout={true} />
       </div>
-      {open && <AlertDialog onClose={handleClose} />}
+      {open && (
+        <ThankYouDialog isClientEmail={isClientEmail} onClose={handleClose} />
+      )}
     </div>
   );
 };

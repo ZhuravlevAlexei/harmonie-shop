@@ -10,9 +10,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useLang } from '@/shared/hooks/useLang';
 import { Button } from '../Button/Button';
 
-import css from './AlertDialog.module.css';
+import css from './ThankYouDialog.module.css';
 
-export default function AlertDialog({ onClose }: { onClose: () => void }) {
+interface ThankYouDialogProps {
+  isClientEmail: boolean;
+  onClose: () => void;
+}
+
+export default function ThankYouDialog({
+  isClientEmail,
+  onClose,
+}: ThankYouDialogProps) {
   const [open, setOpen] = React.useState(true);
   const { lang, translations } = useLang();
 
@@ -35,6 +43,8 @@ export default function AlertDialog({ onClose }: { onClose: () => void }) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {translations[lang].alert_dialog.message}
+            {'  '}
+            {isClientEmail && translations[lang].alert_dialog.about_email}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -21,6 +21,12 @@ export enum ApiRouts {
   PRODUCTS_DATA = '/products/data',
 }
 
+export const ROLES = {
+  ADMIN: 'admin',
+  MANAGER: 'manager',
+  USER: 'user',
+};
+
 export enum PaginationLimits {
   LIMIT_12 = 12,
   LIMIT_24 = 24,
