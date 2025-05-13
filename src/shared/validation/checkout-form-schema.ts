@@ -118,4 +118,4 @@ export const createCheckoutFormSchemaMultilang = (
     });
 };
 
-export type CheckoutFormValues = z.infer<typeof checkoutFormSchema>;
+export type CheckoutFormType = z.infer<typeof checkoutFormSchema>;

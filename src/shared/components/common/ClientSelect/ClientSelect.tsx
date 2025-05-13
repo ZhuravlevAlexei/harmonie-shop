@@ -5,13 +5,13 @@ import Select, { SingleValue } from 'react-select';
 
 import { useLang } from '@/shared/hooks/useLang';
 
-import { CheckoutFormValues } from '@/shared/validation/checkout-form-schema';
+import { CheckoutFormType } from '@/shared/validation/checkout-form-schema';
 import { DeliveryOptionType } from '@/shared/types/types';
 
 import css from './ClientSelect.module.css';
 
 interface ClientSelectProps {
-  field: ControllerRenderProps<CheckoutFormValues, 'deliveryType'>;
+  field: ControllerRenderProps<CheckoutFormType, 'deliveryType'>;
   options: DeliveryOptionType[];
   placeholder?: string;
 }
@@ -25,7 +25,7 @@ const ClientSelect: React.FC<ClientSelectProps> = ({
   const {
     formState: { errors },
     setValue,
-  } = useFormContext<CheckoutFormValues>();
+  } = useFormContext<CheckoutFormType>();
 
   const errorText = errors['deliveryType']?.message as string;
 

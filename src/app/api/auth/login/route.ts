@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import bcrypt from 'bcrypt';
 
 import { UsersCollection } from '@/db/models/user';
-import { signAccessToken, signRefreshToken } from '@/actions/authTokens';
-import { setAuthCookies } from '@/actions/authCookies';
+import { signAccessToken, signRefreshToken } from '@/shared/utils/authTokens';
 import connectDB from '@/db/connectDB';
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();
-
+  const cookieStore = await cookies();
   await connectDB();
   const user = await UsersCollection.findOne({ email: email });
   if (!user) {
@@ -19,11 +19,27 @@ export async function POST(req: Request) {
   if (!isEqual) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const plainUser = { name: user.name, email: user.email, role: user.role };
-  const accessToken = signAccessToken(plainUser);
-  const refreshToken = signRefreshToken(plainUser);
 
-  const res = NextResponse.json({ success: true });
-  setAuthCookies(accessToken, refreshToken);
+  const safeUser = { name: user.name, email: user.email, role: user.role };
+  const accessToken = signAccessToken(safeUser);
+  const refreshToken = signRefreshToken(safeUser);
+
+  cookieStore.set('accessToken', accessToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    path: '/',
+    maxAge: 60 * 15,
+  });
+  cookieStore.set('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  const res = NextResponse.json({ success: true }, { status: 200 });
+
   return res;
 }

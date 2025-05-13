@@ -1,17 +1,40 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useAuthStore } from '@/shared/store/auth';
+
 import { Button } from '../../common/Button/Button';
+import LogInDialog from '../LogInDialog/LogInDialog';
 
 import css from './HeaderAdmin.module.css';
 
-interface HeaderAdminProps {
-  isLoggedIn?: boolean;
-}
+export const HeaderAdmin: React.FC = () => {
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
+  const user = useAuthStore(state => state.user);
+  const [open, setOpen] = React.useState(false);
 
-export const HeaderAdmin: React.FC<HeaderAdminProps> = () => {
-  const isLoggedIn = false;
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLogOff = async () => {
+    const res = await fetch('/api/auth/logoff', {
+      method: 'POST',
+      credentials: 'include',
+    });
+    if (!res.ok) {
+      useAuthStore.setState({ isLoggedIn: false, user: null });
+    }
+    window.location.reload();
+  };
+
   return (
     <header className={css.header}>
       <Link href="/" className={css.header__logo__link}>
@@ -20,12 +43,19 @@ export const HeaderAdmin: React.FC<HeaderAdminProps> = () => {
       </Link>
       <div className={css.header__auth}>
         <span className={css.header__auth__text}>
-          {isLoggedIn ? 'Welcome, Username!' : 'Authorize please!'}
+          {user ? `Welcome, ${user.name}` : 'Authorize please!'}
         </span>
-        <Button className={css.header__button}>
-          {isLoggedIn ? 'Log out' : 'Log in'}
-        </Button>
+        {isLoggedIn ? (
+          <Button className={css.header__button} onClick={handleLogOff}>
+            Log off
+          </Button>
+        ) : (
+          <Button className={css.header__button} onClick={handleOpen}>
+            Log in
+          </Button>
+        )}
       </div>
+      {open && <LogInDialog isOpen={open} onClose={handleClose} />}
     </header>
   );
 };

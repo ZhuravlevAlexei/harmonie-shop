@@ -6,13 +6,13 @@ import { ControllerRenderProps, useFormContext } from 'react-hook-form';
 
 import { useLang } from '@/shared/hooks/useLang';
 
-import { CheckoutFormValues } from '@/shared/validation/checkout-form-schema';
+import { CheckoutFormType } from '@/shared/validation/checkout-form-schema';
 import { DivisionOptionType, LocationOptionType } from '@/shared/types/types';
 
 import css from './ClientAsyncSelect.module.css';
 
 interface ClientAsyncSelectProps {
-  field: ControllerRenderProps<CheckoutFormValues, 'location' | 'division'>;
+  field: ControllerRenderProps<CheckoutFormType, 'location' | 'division'>;
   defaultOptions: LocationOptionType[] | DivisionOptionType[];
   placeholder?: string;
   getSettlementsList: (inputValue: string) => Promise<LocationOptionType[]>;
@@ -30,7 +30,7 @@ const ClientAsyncSelect: React.FC<ClientAsyncSelectProps> = ({
   const {
     formState: { errors },
     setValue,
-  } = useFormContext<CheckoutFormValues>();
+  } = useFormContext<CheckoutFormType>();
 
   const errorText = errors[field.name]?.message as string;
 

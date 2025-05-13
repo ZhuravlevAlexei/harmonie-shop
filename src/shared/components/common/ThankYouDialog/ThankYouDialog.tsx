@@ -14,25 +14,25 @@ import css from './ThankYouDialog.module.css';
 
 interface ThankYouDialogProps {
   isClientEmail: boolean;
+  isOpen: boolean;
   onClose: () => void;
 }
 
 export default function ThankYouDialog({
   isClientEmail,
+  isOpen,
   onClose,
 }: ThankYouDialogProps) {
-  const [open, setOpen] = React.useState(true);
   const { lang, translations } = useLang();
 
   const handleClose = () => {
     onClose();
-    setOpen(false);
   };
 
   return (
     <React.Fragment>
       <Dialog
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

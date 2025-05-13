@@ -1,3 +1,9 @@
+export type SafeUser = {
+  name: string;
+  email: string;
+  role: string;
+};
+
 export type SafeGroup = {
   id: number;
   name: string;

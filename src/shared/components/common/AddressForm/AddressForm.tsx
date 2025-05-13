@@ -11,7 +11,7 @@ import {
   defaultOptionsForLocationSelect,
 } from '@/shared/options/selectOptions';
 import { FormInput } from '../FormInput/FormInput';
-import { CheckoutFormValues } from '@/shared/validation/checkout-form-schema';
+import { CheckoutFormType } from '@/shared/validation/checkout-form-schema';
 
 const ClientOnlySelect = dynamic(() => import('../ClientSelect/ClientSelect'), {
   ssr: false,
@@ -30,7 +30,7 @@ interface AddressFormProps {
 
 export const AddressForm: React.FC<AddressFormProps> = ({}) => {
   const { lang, translations } = useLang();
-  const { watch, control } = useFormContext<CheckoutFormValues>();
+  const { watch, control } = useFormContext<CheckoutFormType>();
 
   const deliveryType = watch('deliveryType');
   const deliveryString = deliveryType ? deliveryType.value : '';

@@ -15,7 +15,7 @@ import { AddressForm } from '../AddressForm/AddressForm';
 import { Button } from '../Button/Button';
 
 import {
-  CheckoutFormValues,
+  CheckoutFormType,
   createCheckoutFormSchemaMultilang,
 } from '@/shared/validation/checkout-form-schema';
 import { OrderType } from '@/db/models/order';
@@ -31,7 +31,7 @@ export const Checkout: React.FC = () => {
   const [isClientEmail, setIsClientEmail] = React.useState(false);
   const { lang, translations } = useLang();
   const cartIsNotEmpty = useCartStore(state => state.items.length > 0);
-  const form = useForm<CheckoutFormValues>({
+  const form = useForm<CheckoutFormType>({
     resolver: zodResolver(createCheckoutFormSchemaMultilang(lang)),
     mode: 'onSubmit',
     defaultValues: {
@@ -53,7 +53,7 @@ export const Checkout: React.FC = () => {
     router.push('/');
   };
 
-  const onSubmit = async (data: CheckoutFormValues) => {
+  const onSubmit = async (data: CheckoutFormType) => {
     try {
       setLoading(true);
       const cartItems = useCartStore.getState().items.map(item => {
@@ -152,7 +152,11 @@ export const Checkout: React.FC = () => {
         <Cart forCheckout={true} />
       </div>
       {open && (
-        <ThankYouDialog isClientEmail={isClientEmail} onClose={handleClose} />
+        <ThankYouDialog
+          isClientEmail={isClientEmail}
+          isOpen={open}
+          onClose={handleClose}
+        />
       )}
     </div>
   );
