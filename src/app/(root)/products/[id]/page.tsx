@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
   if (!response.ok) {
-    throw new Error(`Query error: ${response.status}`);
+    throw new Error(`Query (/products/[id]) error: ${response.status}`);
   }
   const { product } = await response.json();
 

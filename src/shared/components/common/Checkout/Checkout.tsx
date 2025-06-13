@@ -68,10 +68,8 @@ export const Checkout: React.FC = () => {
 
       const totalAmount = useCartStore.getState().totalAmount;
       if (data.email) setIsClientEmail(true);
-      const curDate = new Date();
-      const orderDate = curDate.toLocaleString();
       const payload = {
-        orderDate: orderDate,
+        orderDate: new Date(),
         orderNumber: '',
         firstName: data.firstName,
         lastName: data.lastName,
@@ -82,6 +80,7 @@ export const Checkout: React.FC = () => {
         location: data.location?.value.city,
         deliveryLocation: data.deliveryLocation,
         division: data.division?.value,
+        TTN: '',
         items: cartItems,
         totalAmount: totalAmount,
         status: 'new',

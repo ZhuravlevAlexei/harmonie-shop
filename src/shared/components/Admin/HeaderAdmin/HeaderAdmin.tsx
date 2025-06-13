@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { useAuthStore } from '@/shared/store/auth';
 
@@ -12,6 +13,7 @@ import LogInDialog from '../LogInDialog/LogInDialog';
 import css from './HeaderAdmin.module.css';
 
 export const HeaderAdmin: React.FC = () => {
+  const router = useRouter();
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const user = useAuthStore(state => state.user);
   const [open, setOpen] = React.useState(false);
@@ -32,7 +34,8 @@ export const HeaderAdmin: React.FC = () => {
     if (!res.ok) {
       useAuthStore.setState({ isLoggedIn: false, user: null });
     }
-    window.location.reload();
+    // window.location.reload();
+    router.refresh();
   };
 
   return (

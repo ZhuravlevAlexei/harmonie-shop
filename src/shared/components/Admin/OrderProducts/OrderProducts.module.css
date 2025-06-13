@@ -1,0 +1,27 @@
+.order__item__image {
+  object-fit: contain;
+}
+
+.th__cell {
+  padding: 10px;
+  border: 1px solid lightgray;
+}
+
+.th__product__name {
+  width: 650px;
+}
+
+.td__cell {
+  padding: 0 10px 0 10px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid lightgray;
+}
+
+.td__footer__cell {
+  padding: 0 10px 0 10px;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 500;
+  border: 1px solid lightgray;
+}

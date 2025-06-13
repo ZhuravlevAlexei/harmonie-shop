@@ -1,12 +1,18 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { Loader } from 'lucide-react';
 
 import { useAuthStore } from '@/shared/store/auth';
+import { useOrderStore } from '@/shared/store/orders';
+import { authRefreshAccessToken } from '@/shared/utils/authRefreshAccessToken';
+import { OrdersItem } from '../OrdersItem/OrdersItem';
 
 import { SafeUser } from '@/shared/types/types';
+import { OrderDocumentType } from '@/db/models/order';
 
-// import css from './Orders.module.css';
+import css from './Orders.module.css';
 
 interface OrdersProps {
   accessToken: string;
@@ -19,22 +25,94 @@ export const Orders: React.FC<OrdersProps> = ({
   refreshToken,
   user = null,
 }) => {
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
+  const [isRefreshing, setRefreshing] = React.useState(false);
+  const { orders } = useOrderStore();
+
   React.useEffect(() => {
-    async function refreshAccessToken() {
-      //try to refresh access token
-      await fetch('api/auth/refresh', {
-        method: 'POST',
-        credentials: 'include',
-      });
-      window.location.reload();
+    async function goRefresh() {
+      try {
+        setRefreshing(true);
+        await authRefreshAccessToken();
+      } catch (e) {
+        setRefreshing(false);
+        console.log(e);
+      } finally {
+        setRefreshing(false);
+      }
     }
-    if (!accessToken && refreshToken) refreshAccessToken();
+    if (!accessToken && refreshToken) {
+      goRefresh();
+    }
   }, [accessToken, refreshToken]);
 
-  if (!user) return <h3>Not authorized. Log in, please!</h3>;
-  setTimeout(() => {
-    useAuthStore.setState({ isLoggedIn: true, user });
-  }, 100);
+  React.useEffect(() => {
+    async function getOrders() {
+      try {
+        setLoading(true);
+        const resp = await fetch('/api/orders', {
+          method: 'GET',
+          credentials: 'include',
+        });
 
-  return <div>ADMIN ORDERS </div>;
+        if (resp.status === 401) router.refresh();
+
+        const foundOrders = await resp.json();
+        if (foundOrders) useOrderStore.setState({ orders: foundOrders.orders });
+      } catch (e) {
+        console.log(e);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (user) getOrders();
+  }, [user, accessToken]);
+
+  if (user) {
+    setTimeout(() => {
+      useAuthStore.setState({ isLoggedIn: true, user });
+    }, 100);
+  }
+
+  return (
+    <>
+      {!user ? (
+        <div>
+          <h3>Not authorized. Log in, please!</h3>
+          {isRefreshing && <h3>Refreshing authorization...</h3>}
+        </div>
+      ) : (
+        <div>
+          {loading ? (
+            <div className={css.loader}>
+              <Loader size={68} className="animate-spin" />
+            </div>
+          ) : (
+            <div className={css.table__wrapper}>
+              {orders && orders.length > 0 && (
+                <table>
+                  <thead>
+                    <tr>
+                      <th className={css.th__cell}>Номер и дата</th>
+                      <th className={css.th__cell}>Покупатель</th>
+                      <th className={css.th__cell}>Сумма</th>
+                      <th className={css.th__cell}>Доставка</th>
+                      <th className={css.th__cell}>Статус</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order: OrderDocumentType) => (
+                      <OrdersItem key={String(order._id)} order={order} />
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
 };

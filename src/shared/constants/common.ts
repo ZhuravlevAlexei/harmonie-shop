@@ -21,6 +21,21 @@ export enum ApiRouts {
   PRODUCTS_DATA = '/products/data',
 }
 
+// enum: ['new', 'accepted', 'completed', 'canceled'],
+export enum ORDER_STATUS {
+  NEW = 'new',
+  ACCEPTED = 'accepted',
+  COMPLETED = 'completed',
+  CANCELED = 'canceled',
+}
+
+export const OrderStatusLabels: Record<ORDER_STATUS, string> = {
+  [ORDER_STATUS.NEW]: 'Новый',
+  [ORDER_STATUS.ACCEPTED]: 'Принят',
+  [ORDER_STATUS.COMPLETED]: 'Выполнен',
+  [ORDER_STATUS.CANCELED]: 'Отменен',
+};
+
 export const ROLES = {
   ADMIN: 'admin',
   MANAGER: 'manager',

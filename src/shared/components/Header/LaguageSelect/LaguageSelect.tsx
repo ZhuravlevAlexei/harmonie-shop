@@ -1,9 +1,15 @@
+'use client';
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
+
 import { AllowedLangs } from '@/shared/constants/common';
 import { useLang } from '@/shared/hooks/useLang';
+
 import css from './LaguageSelect.module.css';
 
 export const LaguageSelect: React.FC = () => {
+  const router = useRouter();
   const { lang, setlang } = useLang();
 
   const handleLanguageChange = (
@@ -13,7 +19,8 @@ export const LaguageSelect: React.FC = () => {
     document.cookie = `harmonie_lang=${event.target.value}; path=/; max-age=${
       60 * 60 * 24 * 365
     }`;
-    window.location.reload(); // Перезагружаем страницу, если нужен перевод контента !!!
+    // window.location.reload(); // Перезагружаем страницу, если нужен перевод контента !!!
+    router.refresh();
   };
 
   React.useEffect(() => {

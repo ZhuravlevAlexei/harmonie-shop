@@ -1,0 +1,28 @@
+.td__cell {
+  width: auto;
+  height: auto;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid lightgray;
+}
+
+.order__select {
+  width: 100px;
+  border: none;
+}
+
+.order__new {
+  background-color: transparent;
+}
+
+.order__accepted {
+  background-color: #ffedb2;
+}
+
+.order__completed {
+  background-color: #23e5db;
+}
+
+.order__canceled {
+  background-color: #ffaa9a;
+}

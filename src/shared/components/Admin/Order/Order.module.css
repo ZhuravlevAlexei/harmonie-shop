@@ -1,0 +1,69 @@
+.back__button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 35px;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--button-background-color);
+  border: none;
+  cursor: pointer;
+}
+
+.order__wrapper {
+  display: flex;
+  gap: 30px;
+  flex-direction: row;
+  align-items: top;
+}
+
+.order__info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 20px;
+  gap: 15px;
+  background-color: rgb(248, 243, 243);
+  border-radius: 15px;
+}
+
+.order__info__viber {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: left;
+}
+
+.order__info__ttn {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: left;
+}
+
+.order__info__ttn__input {
+  width: 250px;
+  height: 25px;
+}
+
+.order__info__ttn__button {
+  height: 30px;
+  padding: 5px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--button-background-color);
+  border: none;
+  cursor: pointer;
+}
+
+.order__ttn__modified__alert {
+  color: red;
+  font-size: 16px;
+  font-weight: 500;
+}
