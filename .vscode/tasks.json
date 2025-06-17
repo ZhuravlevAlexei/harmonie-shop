@@ -26,7 +26,7 @@
     },
     {
       "id": "branchName",
-      "default": "main",
+      "default": "current-works",
       "type": "promptString",
       "description": "Enter branch name to push to"
     }
