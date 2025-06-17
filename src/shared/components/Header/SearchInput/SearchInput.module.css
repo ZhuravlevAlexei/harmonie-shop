@@ -30,7 +30,7 @@
 
 .resetTextButton {
   position: absolute;
-  right: 95px;
+  right: 105px;
   height: 25px;
   border-radius: 5px;
   cursor: pointer;
@@ -38,7 +38,7 @@
 
 .searchButton {
   position: absolute;
-  right: 0px;
+  right: 10px;
   width: 90px;
   height: 40px;
 
