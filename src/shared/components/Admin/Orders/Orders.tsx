@@ -1,13 +1,18 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import qs from 'qs';
+import { useShallow } from 'zustand/react/shallow';
 import { Loader } from 'lucide-react';
 
+import { usePaginationStore } from '@/shared/store/pagination';
 import { useAuthStore } from '@/shared/store/auth';
 import { useOrderStore } from '@/shared/store/orders';
 import { authRefreshAccessToken } from '@/shared/utils/authRefreshAccessToken';
+import { Filters } from '../Filters/Filters';
 import { OrdersItem } from '../OrdersItem/OrdersItem';
+import { PaginationBlock } from '../../GoodsContainer';
 
 import { SafeUser } from '@/shared/types/types';
 import { OrderDocumentType } from '@/db/models/order';
@@ -25,10 +30,32 @@ export const Orders: React.FC<OrdersProps> = ({
   refreshToken,
   user = null,
 }) => {
+  const searchParams = useSearchParams();
+  const status = searchParams.get('status'); // accepted
+  const startDate = searchParams.get('startDate'); // строка даты
+  const endDate = searchParams.get('endDate');
+  const [page, perPage, totalPages] = usePaginationStore(
+    useShallow(state => [state.page, state.perPage, state.totalPages])
+  );
+
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const [isRefreshing, setRefreshing] = React.useState(false);
   const { orders } = useOrderStore();
+
+  let queryString = qs.stringify(
+    {
+      status: status,
+      startDate: startDate,
+      endDate: endDate,
+      page: page,
+      perPage: perPage,
+    },
+    { arrayFormat: 'comma' }
+  );
+  if (queryString) {
+    queryString = `?${queryString}`;
+  }
 
   React.useEffect(() => {
     async function goRefresh() {
@@ -51,15 +78,21 @@ export const Orders: React.FC<OrdersProps> = ({
     async function getOrders() {
       try {
         setLoading(true);
-        const resp = await fetch('/api/orders', {
+
+        const resp = await fetch(`/api/orders${queryString}`, {
           method: 'GET',
           credentials: 'include',
         });
 
         if (resp.status === 401) router.refresh();
 
-        const foundOrders = await resp.json();
-        if (foundOrders) useOrderStore.setState({ orders: foundOrders.orders });
+        const data = await resp.json();
+        const foundOrders = data.orders;
+        const paginationData = data.paginationData;
+        if (foundOrders) {
+          useOrderStore.setState({ orders: foundOrders });
+          usePaginationStore.setState({ ...paginationData });
+        }
       } catch (e) {
         console.log(e);
         setLoading(false);
@@ -68,7 +101,7 @@ export const Orders: React.FC<OrdersProps> = ({
       }
     }
     if (user) getOrders();
-  }, [user, accessToken]);
+  }, [user, accessToken, router, queryString]);
 
   if (user) {
     setTimeout(() => {
@@ -90,26 +123,31 @@ export const Orders: React.FC<OrdersProps> = ({
               <Loader size={68} className="animate-spin" />
             </div>
           ) : (
-            <div className={css.table__wrapper}>
-              {orders && orders.length > 0 && (
-                <table>
-                  <thead>
-                    <tr>
-                      <th className={css.th__cell}>Номер и дата</th>
-                      <th className={css.th__cell}>Покупатель</th>
-                      <th className={css.th__cell}>Сумма</th>
-                      <th className={css.th__cell}>Доставка</th>
-                      <th className={css.th__cell}>Статус</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orders.map((order: OrderDocumentType) => (
-                      <OrdersItem key={String(order._id)} order={order} />
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
+            <>
+              <Filters />
+
+              <div className={css.table__wrapper}>
+                {orders && orders.length > 0 && (
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className={css.th__cell}>Номер и дата</th>
+                        <th className={css.th__cell}>Покупатель</th>
+                        <th className={css.th__cell}>Сумма</th>
+                        <th className={css.th__cell}>Доставка</th>
+                        <th className={css.th__cell}>Статус</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((order: OrderDocumentType) => (
+                        <OrdersItem key={String(order._id)} order={order} />
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+              {totalPages > 0 && <PaginationBlock forOrders={true} />}
+            </>
           )}
         </div>
       )}

@@ -1,0 +1,42 @@
+.filters__wrapper {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  background-color: var(--main-backgroung-gray-color);
+}
+
+.filters__area {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  height: 40px;
+  padding: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.filter__status__label {
+  margin-right: 5px;
+}
+
+.filter__status__select {
+  width: 120px;
+}
+
+.filters__button {
+  width: 120px;
+  height: 30px;
+  padding: 5px;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  background-color: var(--button-background-color);
+  border: none;
+  cursor: pointer;
+}

@@ -7,7 +7,13 @@ import { usePaginationStore } from '@/shared/store/pagination';
 import css from './PaginationBlock.module.css';
 import { PaginationLimits } from '@/shared/constants/common';
 
-export const PaginationBlock: React.FC = () => {
+interface PaginationBlockProps {
+  forOrders?: boolean;
+}
+
+export const PaginationBlock: React.FC<PaginationBlockProps> = ({
+  forOrders = false,
+}) => {
   const { lang, translations } = useLang();
   const page = usePaginationStore(state => state.page);
   const perPage = usePaginationStore(state => state.perPage);
@@ -33,7 +39,9 @@ export const PaginationBlock: React.FC = () => {
         />
       </Stack>
       <span className={css.pagination__units__text}>
-        {translations[lang].pagination_per_page}
+        {forOrders
+          ? 'Заказов на странице:'
+          : `${translations[lang].pagination_per_page}`}
       </span>
       <select
         className={css.pagination__units__select}

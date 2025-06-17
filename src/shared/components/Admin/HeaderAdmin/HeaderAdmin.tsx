@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { useAuthStore } from '@/shared/store/auth';
 
@@ -13,7 +12,6 @@ import LogInDialog from '../LogInDialog/LogInDialog';
 import css from './HeaderAdmin.module.css';
 
 export const HeaderAdmin: React.FC = () => {
-  const router = useRouter();
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
   const user = useAuthStore(state => state.user);
   const [open, setOpen] = React.useState(false);
@@ -34,8 +32,7 @@ export const HeaderAdmin: React.FC = () => {
     if (!res.ok) {
       useAuthStore.setState({ isLoggedIn: false, user: null });
     }
-    // window.location.reload();
-    router.refresh();
+    window.location.reload();
   };
 
   return (
@@ -49,11 +46,11 @@ export const HeaderAdmin: React.FC = () => {
           {user ? `Welcome, ${user.name}` : 'Authorize please!'}
         </span>
         {isLoggedIn ? (
-          <Button className={css.header__button} onClick={handleLogOff}>
+          <Button className={css.header__auth__button} onClick={handleLogOff}>
             Log off
           </Button>
         ) : (
-          <Button className={css.header__button} onClick={handleOpen}>
+          <Button className={css.header__auth__button} onClick={handleOpen}>
             Log in
           </Button>
         )}

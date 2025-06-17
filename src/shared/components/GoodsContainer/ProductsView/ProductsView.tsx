@@ -3,11 +3,15 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import clsx from 'clsx';
+import { useShallow } from 'zustand/react/shallow';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { usePaginationStore } from '@/shared/store/pagination';
 import { useProductsStore } from '@/shared/store/products';
+import { useCartStore } from '@/shared/store/cart';
 
+import { Button } from '../../common/Button/Button';
 import { PaginationBlock } from '../PaginationBlock/PaginationBlock';
 
 import {
@@ -19,10 +23,6 @@ import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 import { PaginationData, SafeProduct } from '@/shared/types/types';
 
 import css from './ProductsView.module.css';
-import { Button } from '../../common/Button/Button';
-import { useCartStore } from '@/shared/store/cart';
-import { useShallow } from 'zustand/react/shallow';
-import clsx from 'clsx';
 
 interface ProductsViewProps {
   activeGroupId: number;

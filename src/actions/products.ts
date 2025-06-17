@@ -52,11 +52,14 @@ export async function getProductsBySearchText(
       },
     };
   }
+
+  await connectDB();
+
   try {
     const limit = perPage;
     const skip = (page - 1) * perPage;
     const sortOrderTS = sortOrder === SORT_ORDER.ASC ? 1 : -1;
-    await connectDB();
+
     const productsQuery = ProductsCollection.find({
       $or: [
         { name: { $regex: searchText, $options: 'i' } }, // Поиск в name
