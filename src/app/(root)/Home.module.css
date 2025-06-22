@@ -1,18 +1,17 @@
 .grid_container {
   display: grid;
-  grid-template-columns: 375px;
+  grid-template-columns: 355px;
   grid-template-rows: 50px 1fr;
   grid-template-areas:
     'breadcrumbs'
     'goods_container';
 
   @media screen and (min-width: 768px) {
-    grid-template-columns: 768px;
+    grid-template-columns: 748px;
   }
 
   @media screen and (min-width: 1440px) {
     grid-template-columns: 250px 1fr;
-    /* grid-template-rows: 50px 1fr; */
     grid-template-areas:
       'root_point breadcrumbs'
       'left_side goods_container';

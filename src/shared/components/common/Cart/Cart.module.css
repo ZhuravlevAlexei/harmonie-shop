@@ -1,6 +1,5 @@
 .cart_wrapper {
-  width: 365px;
-  padding-left: 5px;
+  width: 355px;
   @media screen and (min-width: 768px) {
     width: auto;
   }
@@ -35,6 +34,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 5px 5px 10px 5px;
   @media screen and (min-width: 1440px) {
     padding: 5px 100px 10px 20px;
   }
@@ -66,7 +66,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 5px;
 }
 
 .clear__cart__button {

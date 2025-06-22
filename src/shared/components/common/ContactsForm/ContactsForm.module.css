@@ -1,9 +1,14 @@
+.checkout__contacts__text {
+  width: 355px;
+  @media screen and (min-width: 768px) {
+    width: auto;
+  }
+}
+
 .checkout__inputs__wrapper {
   display: flex;
   flex-direction: column;
-  width: 375px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 355px;
 
   gap: 10px;
   @media screen and (min-width: 768px) {

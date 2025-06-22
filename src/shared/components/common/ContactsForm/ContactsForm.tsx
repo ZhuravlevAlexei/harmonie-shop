@@ -15,7 +15,9 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({}) => {
   const { lang, translations } = useLang();
   return (
     <>
-      <h4>{translations[lang].checkout.contacts}</h4>
+      <h4 className={css.checkout__contacts__text}>
+        {translations[lang].checkout.contacts}
+      </h4>
       <div className={css.checkout__inputs__wrapper}>
         <FormInput
           name="firstName"
@@ -44,7 +46,9 @@ export const ContactsForm: React.FC<ContactsFormProps> = ({}) => {
           required={true}
         />
       </div>
-      <span>{translations[lang].checkout.about_email}</span>
+      <span className={css.checkout__contacts__text}>
+        {translations[lang].checkout.about_email}
+      </span>
     </>
   );
 };

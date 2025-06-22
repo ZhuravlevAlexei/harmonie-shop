@@ -1,10 +1,10 @@
 .contacts__wrapper {
   display: grid;
-  padding-left: 5px;
+
   grid-template-areas:
     'schedule'
     'information';
-  grid-template-columns: 365px;
+  grid-template-columns: 355px;
   grid-template-rows: 1fr;
   row-gap: 10px;
 
@@ -24,6 +24,8 @@
 }
 
 .shedule__item {
+  padding-left: 5px;
+  padding-right: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
