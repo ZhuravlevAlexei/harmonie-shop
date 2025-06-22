@@ -11,7 +11,6 @@
   padding-top: 24px;
   padding-bottom: 34px;
   background-color: var(--main-white-color);
-
   box-shadow: 0px 2px 0px 0 rgb(0, 0, 0, 0.25);
 
   @media screen and (min-width: 768px) {
@@ -36,11 +35,19 @@
 .header__contacts {
   position: absolute;
   top: 75px;
-  left: 200px;
+  left: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
+
+  @media screen and (min-width: 768px) {
+    left: 95px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    left: 230px;
+  }
 }
 
 .header__contacts__link {
@@ -51,7 +58,22 @@
   text-decoration: none;
 }
 
-.header__contacts__messanger {
+.header__logo__text {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--goldenrod-color);
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+
+  @media screen and (min-width: 1440px) {
+    display: unset;
+    font-size: 28px;
+  }
+}
+
+.header__contacts__messenger {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -60,19 +82,19 @@
   text-decoration: none;
 }
 
-.header__logo__text {
-  display: none;
-
-  @media screen and (min-width: 1440px) {
-    display: unset;
-    font-weight: 600;
-    font-size: 28px;
-    color: var(--goldenrod-color);
-  }
-}
-
 .header__buttons {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 10px;
+}
+
+.header__mobile__search {
+  border: none;
+  color: var(--main-black-color);
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+  &:hover {
+    color: var(--orange-star-color);
+  }
 }
