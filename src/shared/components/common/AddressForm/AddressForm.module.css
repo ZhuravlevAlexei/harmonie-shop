@@ -1,0 +1,8 @@
+.checkout__address__form__wrapper {
+  width: 375px;
+  padding-left: 10px;
+  padding-right: 10px;
+  @media screen and (min-width: 768px) {
+    width: auto;
+  }
+}
