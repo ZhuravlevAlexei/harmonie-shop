@@ -1,7 +1,8 @@
 .checkout__address__form__wrapper {
-  width: 375px;
-  padding-left: 10px;
-  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 355px;
   @media screen and (min-width: 768px) {
     width: auto;
   }

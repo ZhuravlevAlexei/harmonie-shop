@@ -6,7 +6,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 375px;
+  width: 355px;
   height: 40px;
   padding-top: 24px;
   padding-bottom: 34px;
@@ -14,11 +14,11 @@
   box-shadow: 0px 2px 0px 0 rgb(0, 0, 0, 0.25);
 
   @media screen and (min-width: 768px) {
-    width: 768px;
+    width: 748px;
   }
 
   @media screen and (min-width: 1440px) {
-    width: 1440px;
+    width: 1420px;
   }
 }
 
@@ -28,7 +28,7 @@
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   text-decoration: none;
 }
 
@@ -60,7 +60,7 @@
 
 .header__logo__text {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--goldenrod-color);
 
   @media screen and (min-width: 768px) {
@@ -85,7 +85,7 @@
 .header__buttons {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 7px;
 }
 
 .header__mobile__search {

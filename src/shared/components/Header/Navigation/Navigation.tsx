@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+
 import { useLang } from '@/shared/hooks/useLang';
+
 import css from './Navigation.module.css';
 
 export const Navigation: React.FC = () => {
