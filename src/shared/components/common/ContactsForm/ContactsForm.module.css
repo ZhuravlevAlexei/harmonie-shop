@@ -1,6 +1,13 @@
 .checkout__inputs__wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 375px;
+  padding-left: 10px;
+  padding-right: 10px;
+
   gap: 10px;
-  width: 720px;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    width: 720px;
+  }
 }

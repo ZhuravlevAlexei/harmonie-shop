@@ -116,47 +116,49 @@ export const Checkout: React.FC = () => {
   };
 
   return (
-    <div className={css.checkout__wrapper}>
-      <div className={css.checkout__data__wrapper}>
-        <h3>{translations[lang].checkout.title}</h3>
-        <FormProvider {...form}>
-          <form
-            className={css.checkout__form}
-            onSubmit={handleSubmit(onSubmit)}
-            onKeyDown={handleKeyDown}
-            noValidate
-          >
-            <ContactsForm />
-            <AddressForm />
-            <textarea
-              className={css.checkout__comment}
-              id="comment"
-              placeholder={translations[lang].checkout.comment}
-              {...register('comment')}
-            ></textarea>
+    <>
+      <h2>{translations[lang].checkout.title}</h2>
+      <div className={css.checkout__wrapper}>
+        <div className={css.checkout__data__wrapper}>
+          <FormProvider {...form}>
+            <form
+              className={css.checkout__form}
+              onSubmit={handleSubmit(onSubmit)}
+              onKeyDown={handleKeyDown}
+              noValidate
+            >
+              <ContactsForm />
+              <AddressForm />
+              <textarea
+                className={css.checkout__comment}
+                id="comment"
+                placeholder={translations[lang].checkout.comment}
+                {...register('comment')}
+              ></textarea>
 
-            {cartIsNotEmpty && (
-              <Button
-                className={css.checkout__submit__button}
-                type="submit"
-                loading={loading}
-              >
-                {translations[lang].checkout.create_order}
-              </Button>
-            )}
-          </form>
-        </FormProvider>
+              {cartIsNotEmpty && (
+                <Button
+                  className={css.checkout__submit__button}
+                  type="submit"
+                  loading={loading}
+                >
+                  {translations[lang].checkout.create_order}
+                </Button>
+              )}
+            </form>
+          </FormProvider>
+        </div>
+        <div>
+          <Cart forCheckout={true} />
+        </div>
+        {open && (
+          <ThankYouDialog
+            isClientEmail={isClientEmail}
+            isOpen={open}
+            onClose={handleClose}
+          />
+        )}
       </div>
-      <div>
-        <Cart forCheckout={true} />
-      </div>
-      {open && (
-        <ThankYouDialog
-          isClientEmail={isClientEmail}
-          isOpen={open}
-          onClose={handleClose}
-        />
-      )}
-    </div>
+    </>
   );
 };
