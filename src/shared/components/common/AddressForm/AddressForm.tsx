@@ -13,6 +13,8 @@ import {
 import { FormInput } from '../FormInput/FormInput';
 import { CheckoutFormType } from '@/shared/validation/checkout-form-schema';
 
+import css from './AddressForm.module.css';
+
 const ClientOnlySelect = dynamic(() => import('../ClientSelect/ClientSelect'), {
   ssr: false,
 });
@@ -46,7 +48,7 @@ export const AddressForm: React.FC<AddressFormProps> = ({}) => {
   } = useNovaPoshta(deliveryType, cityId);
 
   return (
-    <>
+    <div className={css.checkout__address__form__wrapper}>
       <h4>{translations[lang].checkout.delivery_new_post}</h4>
       <Controller
         control={control}
@@ -93,6 +95,6 @@ export const AddressForm: React.FC<AddressFormProps> = ({}) => {
           )}
         />
       )}
-    </>
+    </div>
   );
 };

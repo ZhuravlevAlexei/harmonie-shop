@@ -106,34 +106,36 @@ export const CartItem: React.FC<CartItemProps> = ({
       <span className={css.cart__item__price}>
         {actualProduct.price.toFixed(2)} ₴ / шт.
       </span>
+      <div className={css.cart__item__quantity__wrapper}>
+        <Button
+          className={css.cart__item__button}
+          onClick={() => handleQtyMinus(cartItem.product)}
+          disabled={cartItem.quantity === 1}
+        >
+          <CircleMinus />
+        </Button>
 
-      <Button
-        className={css.cart__item__button}
-        onClick={() => handleQtyMinus(cartItem.product)}
-        disabled={cartItem.quantity === 1}
-      >
-        <CircleMinus />
-      </Button>
+        <span className={css.cart__item__quantity}>{cartItem.quantity}</span>
 
-      <span className={css.cart__item__quantity}>{cartItem.quantity}</span>
+        <Button
+          className={css.cart__item__button}
+          onClick={() => handleQtyPlus(cartItem.product)}
+        >
+          <CirclePlus />
+        </Button>
+      </div>
+      <div className={css.cart__item__totalLine__wrapper}>
+        <span className={css.cart__item__totalLine}>
+          {calcCartLine(cartItem.quantity, actualProduct.price)} ₴
+        </span>
 
-      <Button
-        className={css.cart__item__button}
-        onClick={() => handleQtyPlus(cartItem.product)}
-      >
-        <CirclePlus />
-      </Button>
-
-      <span className={css.cart__item__totalLine}>
-        {calcCartLine(cartItem.quantity, actualProduct.price)} ₴
-      </span>
-
-      <Button
-        className={css.cart__item__button}
-        onClick={() => handleRemoveFromCart(cartItem.product)}
-      >
-        <Trash2 />
-      </Button>
+        <Button
+          className={css.cart__item__button}
+          onClick={() => handleRemoveFromCart(cartItem.product)}
+        >
+          <Trash2 />
+        </Button>
+      </div>
     </div>
   );
 };

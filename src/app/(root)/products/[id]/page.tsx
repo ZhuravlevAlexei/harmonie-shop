@@ -118,14 +118,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className={css.product_page__name}>
           <h3>{getNameMultilang(product, lang)}</h3>
         </div>
-        <div className={css.product_page__viewer}>
-          <ProductGallery images={images} />
-        </div>
         <div className={css.product_page__product}>
           <ProductPriceAndAction id={id} />
           {productData.params.length > 0 && (
             <ProductCharacteristics productData={productData} />
           )}
+        </div>
+        <div className={css.product_page__viewer}>
+          <ProductGallery images={images} />
         </div>
       </div>
       <ProductDescription product={product} />

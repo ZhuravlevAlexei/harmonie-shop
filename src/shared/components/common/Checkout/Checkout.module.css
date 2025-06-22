@@ -1,8 +1,13 @@
 .checkout__wrapper {
   display: grid;
-  grid-template-columns: 720px 1fr;
-  grid-template-areas: 'data cart';
-  column-gap: 40px;
+  grid-template-areas:
+    'cart'
+    'data';
+  @media screen and (min-width: 1440px) {
+    grid-template-areas: 'data cart';
+    grid-template-columns: 720px 1fr;
+    column-gap: 40px;
+  }
 }
 
 .checkout__data__wrapper {

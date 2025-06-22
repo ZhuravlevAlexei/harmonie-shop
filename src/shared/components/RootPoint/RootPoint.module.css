@@ -1,10 +1,13 @@
 .root_point {
-  grid-area: root_point;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: 22px;
-  font-weight: 600;
-  cursor: pointer;
+  display: none;
+  @media screen and (min-width: 1440px) {
+    grid-area: root_point;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 }
