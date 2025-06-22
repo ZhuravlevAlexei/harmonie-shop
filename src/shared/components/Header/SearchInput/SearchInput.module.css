@@ -1,13 +1,34 @@
 .search {
-  position: relative;
+  position: absolute;
+  top: -56px;
+  left: 10px;
+  width: 355px;
+  height: 56px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-grow: 1;
-  min-width: 0;
-  height: 56px;
-  margin-left: 20px;
-  margin-right: 20px;
+
+  border-radius: 10px;
+
+  transition: top 0.5s ease;
+
+  @media screen and (min-width: 768px) {
+    position: relative;
+    top: unset;
+    left: unset;
+    height: 56px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.searchActive {
+  top: 110px;
+  @media screen and (min-width: 768px) {
+    top: unset;
+  }
 }
 
 .searchIcon {
@@ -30,24 +51,31 @@
 
 .resetTextButton {
   position: absolute;
-  right: 105px;
+  right: 30px;
   height: 25px;
   border-radius: 5px;
   cursor: pointer;
+  @media screen and (min-width: 768px) {
+    right: 105px;
+  }
 }
 
 .searchButton {
-  position: absolute;
-  right: 10px;
-  width: 90px;
-  height: 40px;
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: unset;
+    position: absolute;
+    right: 10px;
+    width: 90px;
+    height: 40px;
 
-  padding-left: 10px;
-  padding-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 
-  /* background-color: hsl(22, 100%, 50%); */
-  background-color: var(--goldenrod-color);
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
+    /* background-color: hsl(22, 100%, 50%); */
+    background-color: var(--goldenrod-color);
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
 }

@@ -37,15 +37,13 @@ export const LaguageSelect: React.FC = () => {
   }, [setlang]);
 
   return (
-    <div className={css.header__lang}>
-      <select
-        className={css.header__lang__select}
-        value={lang}
-        onChange={handleLanguageChange}
-      >
-        <option value={AllowedLangs.UK}>UK</option>
-        <option value={AllowedLangs.RU}>RU</option>
-      </select>
-    </div>
+    <select
+      className={css.header__lang__select}
+      value={lang}
+      onChange={handleLanguageChange}
+    >
+      <option value={AllowedLangs.UK}>UK</option>
+      <option value={AllowedLangs.RU}>RU</option>
+    </select>
   );
 };
