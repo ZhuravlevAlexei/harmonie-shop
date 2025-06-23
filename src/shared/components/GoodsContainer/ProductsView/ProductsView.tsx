@@ -5,6 +5,7 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
 import { useShallow } from 'zustand/react/shallow';
+import { Loader } from 'lucide-react';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { usePaginationStore } from '@/shared/store/pagination';
@@ -41,6 +42,7 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
   activeGroupId,
 }) => {
   const [forceReRender, setForceReRender] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const { lang, translations } = useLang();
   const [groups, products, searchText] = useProductsStore(
     useShallow(state => [state.groups, state.products, state.searchText])
@@ -58,20 +60,36 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
 
   React.useEffect(() => {
     const getDataByGroupId = async () => {
-      const { products, paginationData } = await getProductsByGroupId(
-        activeGroupId,
-        page,
-        perPage
-      );
-      setStates(products, paginationData);
+      try {
+        setLoading(true);
+        const { products, paginationData } = await getProductsByGroupId(
+          activeGroupId,
+          page,
+          perPage
+        );
+        setStates(products, paginationData);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     };
     const getDataBySearchText = async () => {
-      const { products, paginationData } = await getProductsBySearchText(
-        searchText,
-        page,
-        perPage
-      );
-      setStates(products, paginationData);
+      try {
+        setLoading(true);
+        const { products, paginationData } = await getProductsBySearchText(
+          searchText,
+          page,
+          perPage
+        );
+        setStates(products, paginationData);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     };
 
     if (searchText) {
@@ -97,13 +115,19 @@ export const ProductsView: React.FC<ProductsViewProps> = ({
 
   return (
     <>
-      {searchText && products.length === 0 && (
+      {loading && (
+        <div className={css.loader}>
+          <Loader size={68} className="animate-spin" />
+        </div>
+      )}
+      {!loading && searchText && products.length === 0 && (
         <div>{translations[lang].nothing_found}</div>
       )}
 
-      {!searchText && products.length === 0 && localGroups.length === 0 && (
-        <div>{translations[lang].no_available_products}</div>
-      )}
+      {!loading &&
+        products.length === 0 &&
+        localGroups.length === 0 &&
+        !searchText && <div>{translations[lang].no_available_products}</div>}
 
       {totalPages > 0 && <PaginationBlock />}
 
