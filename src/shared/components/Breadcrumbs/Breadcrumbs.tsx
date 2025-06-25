@@ -8,15 +8,25 @@ import { usePaginationStore } from '@/shared/store/pagination';
 import { useLang } from '@/shared/hooks/useLang';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
 
-import { SafeGroup } from '@/shared/types/types';
+import { SafeGroup, SafeProduct } from '@/shared/types/types';
 
 import css from './Breadcrumbs.module.css';
 
-export const Breadcrumbs: React.FC = () => {
+interface BreadcrumbsProps {
+  safeProduct?: SafeProduct | null;
+  safeGroups?: SafeGroup[] | null;
+  safeRootGroup?: SafeGroup | null;
+}
+
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+  safeProduct = null,
+  safeGroups = null,
+  safeRootGroup = null,
+}) => {
   const router = useRouter();
-  const rootGroup = useProductsStore(state => state.rootGroup);
+  let rootGroup = useProductsStore(state => state.rootGroup);
   let activeGroup = useProductsStore(state => state.activeGroup);
-  const activeProduct = useProductsStore(state => state.activeProduct);
+  let activeProduct = useProductsStore(state => state.activeProduct);
   const searchText = useProductsStore(state => state.searchText);
   const groups = useProductsStore(state => state.groups);
   const { lang } = useLang();
@@ -24,6 +34,24 @@ export const Breadcrumbs: React.FC = () => {
   if (searchText) {
     activeGroup =
       groups.find(group => group.id === activeProduct?.groupId) || null;
+  }
+
+  if (safeProduct) {
+    rootGroup = safeRootGroup;
+    activeProduct = safeProduct;
+    if (safeGroups) {
+      activeGroup =
+        safeGroups.find(group => group.id === safeProduct.groupId) || null;
+    }
+    setTimeout(() => {
+      useProductsStore.setState({
+        rootGroup: rootGroup,
+        activeGroup: activeGroup,
+        activeProduct: activeProduct,
+        searchText: '',
+        groups: safeGroups || [],
+      });
+    }, 100);
   }
 
   if (!rootGroup) return <div></div>;
