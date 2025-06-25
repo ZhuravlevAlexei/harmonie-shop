@@ -1,6 +1,8 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { htmlToText } from 'html-to-text';
+import { decode } from 'html-entities';
 
 import { getLanguage } from '@/shared/utils/getLanguage';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
@@ -29,7 +31,7 @@ interface ProductPageProps {
 
 // example to think!!
 // export async function generateStaticParams() {
-//   const responseAllProducts = await fetch(`http://localhost:3000/api/product`); // we have no such ruote now!!!
+//   const responseAllProducts = await fetch(`http://localhost:3000/api/product`); // we have no such route now!!!
 //   const { products }: ProductType[] = await responseAllProducts.json();
 
 //   return products.map((product) => ( String(product.id) ));
@@ -53,6 +55,13 @@ export async function generateMetadata({
   }
 
   let descriptionStr: string = getDescriptionMultilang(product, lang);
+  //декодируем html-сущности
+  descriptionStr = decode(descriptionStr);
+  //преобразуем в обычный текст
+  descriptionStr = htmlToText(descriptionStr, {
+    wordwrap: false, // чтобы не разбивало строки по ширине
+  });
+
   descriptionStr =
     descriptionStr.length > 198
       ? descriptionStr.slice(0, 198) + '…'
