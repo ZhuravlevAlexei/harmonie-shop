@@ -57,12 +57,27 @@ export async function generateMetadata({
     descriptionStr.length > 198
       ? descriptionStr.slice(0, 198) + '…'
       : descriptionStr;
+  const titleStr = getNameMultilang(product, lang);
 
   return {
-    title: getNameMultilang(product, lang),
+    title: titleStr,
     description: descriptionStr,
     keywords: product?.keywords ?? '',
     robots: 'index, follow',
+    openGraph: {
+      title: titleStr,
+      description: descriptionStr,
+      images: [
+        {
+          url: product?.main_image ?? '/web-app-manifest-192x192.png',
+          width: 200,
+          height: 200,
+          alt: titleStr,
+        },
+      ],
+      locale: lang,
+      siteName: 'Harmomie-shop',
+    },
   };
 }
 
