@@ -47,7 +47,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
       useProductsStore.setState({
         rootGroup: rootGroup,
         activeGroup: activeGroup,
-        activeProduct: activeProduct,
         searchText: '',
         groups: safeGroups || [],
       });
@@ -79,8 +78,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   }
 
   const handleBreadcrumbsClick = (group: SafeGroup) => {
-    router.push(`/`);
-
     useProductsStore.setState({
       activeProduct: null,
       searchText: '',
@@ -94,6 +91,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         totalPages: 0,
       });
     }
+    router.push(`/`);
   };
 
   return (
