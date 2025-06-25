@@ -46,7 +46,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     setTimeout(() => {
       useProductsStore.setState({
         rootGroup: rootGroup,
-        activeGroup: activeGroup,
         searchText: '',
         groups: safeGroups || [],
       });
