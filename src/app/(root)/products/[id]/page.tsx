@@ -6,7 +6,6 @@ import { decode } from 'html-entities';
 
 import { getLanguage } from '@/shared/utils/getLanguage';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
-import { getGroups } from '@/actions/groups';
 
 import { ApiRouts } from '@/shared/constants/common';
 import {
@@ -20,9 +19,6 @@ import { Breadcrumbs } from '@/shared/components';
 import { env } from '@/shared/utils/env';
 import { getDescriptionMultilang } from '@/shared/utils/getDescriptionMultilang';
 import { createSafeProduct } from '@/shared/utils/createSafeProducts';
-import { createSafeGroups } from '@/shared/utils/createSafeGroups';
-
-import { GroupType } from '@/db/models/group';
 
 import css from './ProductPage.module.css';
 
@@ -112,10 +108,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     throw new Error(`Query error - product not found: ${response.status}`);
   }
-
   const safeProduct = createSafeProduct(product);
-  const groups = (await getGroups()) as GroupType[];
-  const { rootGroup, workGroups } = createSafeGroups(groups);
 
   //product data
   const baseDataQuery = `${env('NEXT_PUBLIC_BASE_URL')}${env(
@@ -147,11 +140,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <>
       <div className={css.product_page}>
-        <Breadcrumbs
-          safeProduct={safeProduct}
-          safeGroups={workGroups}
-          safeRootGroup={rootGroup}
-        />
+        <Breadcrumbs safeProduct={safeProduct} />
         <div className={css.product_page__name}>
           <h3>{getNameMultilang(product, lang)}</h3>
         </div>
