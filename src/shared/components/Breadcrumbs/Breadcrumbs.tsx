@@ -49,8 +49,15 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
           const currentGroups: GroupType[] = answer.groups;
           if (currentGroups) {
             const { rootGroup, workGroups } = createSafeGroups(currentGroups);
+            let currentGroup: SafeGroup | undefined;
+            if (safeProduct) {
+              currentGroup = workGroups.find(
+                group => group.id === safeProduct.groupId
+              );
+            }
             useProductsStore.setState({
               rootGroup: rootGroup,
+              activeGroup: currentGroup,
               groups: workGroups,
             });
           }
@@ -62,7 +69,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         setLoading(false);
       }
     };
-
     if (isDirectLinkToPage && safeProduct && groups.length === 0) {
       setGroups();
     }
