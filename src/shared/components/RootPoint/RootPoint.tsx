@@ -5,6 +5,7 @@ import { SafeGroup } from '@/shared/types/types';
 
 import { useLang } from '@/shared/hooks/useLang';
 import { useProductsStore } from '@/shared/store/products';
+import { useInterfaceStore } from '@/shared/store/interface';
 
 import css from './RootPoint.module.css';
 
@@ -21,6 +22,7 @@ export const RootPoint: React.FC<RootPointProps> = ({ rootGroup, groups }) => {
   React.useEffect(() => {
     useProductsStore.setState({ groups: groups });
     useProductsStore.setState({ rootGroup: rootGroup });
+    useInterfaceStore.setState({ isDirectLinkToPage: false });
     if (!searchText) {
       if (!activeGroup) {
         useProductsStore.setState({ activeGroup: rootGroup });

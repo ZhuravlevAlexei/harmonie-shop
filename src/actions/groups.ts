@@ -2,6 +2,7 @@
 
 import connectDB from '../db/connectDB';
 import { HiddenGroups } from '@/shared/constants/hidden';
+
 import { GroupsCollection, GroupType } from '../db/models/group';
 
 export async function getGroups(): Promise<GroupType[]> {
