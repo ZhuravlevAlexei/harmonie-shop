@@ -8,12 +8,12 @@ import { usePaginationStore } from '@/shared/store/pagination';
 import { useInterfaceStore } from '@/shared/store/interface';
 import { useLang } from '@/shared/hooks/useLang';
 import { getNameMultilang } from '@/shared/utils/getNameMultilang';
+import { createSafeGroups } from '@/shared/utils/createSafeGroups';
 
 import { SafeGroup, SafeProduct } from '@/shared/types/types';
+import { GroupType } from '@/db/models/group';
 
 import css from './Breadcrumbs.module.css';
-import { GroupType } from '@/db/models/group';
-import { createSafeGroups } from '@/shared/utils/createSafeGroups';
 
 interface BreadcrumbsProps {
   safeProduct?: SafeProduct;
@@ -46,9 +46,9 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         const res = await fetch('/api/groups');
         if (res.ok) {
           const answer = await res.json();
-          const currentGroups: GroupType[] = answer.groups;
-          if (currentGroups) {
-            const { rootGroup, workGroups } = createSafeGroups(currentGroups);
+          const foundGroups: GroupType[] = answer.groups;
+          if (foundGroups) {
+            const { rootGroup, workGroups } = createSafeGroups(foundGroups);
             let currentGroup: SafeGroup | undefined;
             if (safeProduct) {
               currentGroup = workGroups.find(
@@ -78,7 +78,14 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 
   if (!rootGroup) return <div></div>;
   if (!activeGroup) return <div></div>;
-  if (Number(activeGroup.id) === Number(rootGroup.id)) return <div></div>;
+  if (Number(activeGroup.id) === Number(rootGroup.id))
+    return (
+      <div className={css.breadcrumbs}>
+        <div className={css.breadcrumbs__item}>
+          <House size={26} color={'#daa520'} />
+        </div>
+      </div>
+    );
 
   let currentGroup: SafeGroup | undefined;
   const chainArray: SafeGroup[] = [];
